@@ -1,0 +1,38 @@
+#emacs stuff
+#start the emacs daemon so emacs can run in terminal
+alias emacsdaemon="emacs --daemon"
+#start emacs in terminal
+alias emacs="emacsclient"
+#edit emacs init.el
+alias editemacs="emacs ~/.emacs.d/init.el"
+#edit emacs config
+alias editeconfig="emacs ~/.emacs.d/config.org"
+
+# helpful commands
+# ls with -A option so that dotfiles are always listed
+alias ls="ls -A -C"
+alias caf="caffeinate -dims &" #caffeinate and send to background
+alias deletelast="rm -r target"
+alias get_builtins="echo ${(k)builtins}"
+# update shell so that new edits take effect
+alias shellupdate="source ~/.zshrc"
+# quick way to search a folder
+alias fsearch="ls | grep"
+# quick way to search aliases
+alias agrep="alias | grep"
+# open current directory in finder
+alias finder="open -a Finder ./"
+# make a new directory and open it
+alias mkd="mkdir -p $1 && cd $1"
+
+# shortcuts to edit dotfiles
+alias cddot="cd ~/dotfiles"
+alias editzshrc="emacs ~/.zshrc"     
+alias editzshenv="emacs ~/.zshenv"     
+alias editaliases="emacs ~/.zsh_aliases"
+alias editfuncs="emacs ~/.zsh_functions"
+
+
+#rust specific
+alias launch='basic-http-server .'
+alias cwasm='cargo build --target wasm32-unknown-unknown'OB
