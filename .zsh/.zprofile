@@ -2,14 +2,7 @@ emulate sh
 source ~/.profile
 emulate zsh
 
-
-# Setting PATH for Python
-# The original version is saved in .zprofile.pysave
-export PATH="/usr/bin/python3"
-
-
-
-
-
+# get paths from .zsh_exports if it exists
+[ -e "${HOME}/.zsh_exports" ] && source "${HOME}/.zsh_exports" 
 
 

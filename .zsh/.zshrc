@@ -34,7 +34,5 @@ setopt INC_APPEND_HISTORY
 # link configs files
 [ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
 [ -e "${HOME}/.zsh_functions" ] && source "${HOME}/.zsh_functions"
-[ -e "${HOME}/.zsh_exports" ] && source "${HOME}/.zsh_exports" 
-
 
 
