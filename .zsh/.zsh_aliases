@@ -1,11 +1,13 @@
-#emacs stuff
-#start the emacs daemon so emacs can run in terminal
+#!/bin/zsh
+
+# emacs stuff
+# start the emacs daemon so emacs can run in terminal
 alias emacsdaemon="emacs --daemon"
-#start emacs in terminal
+# start emacs in terminal
 alias emacs="emacsclient"
-#edit emacs init.el
+# edit emacs init.el
 alias editemacs="emacs ~/.emacs.d/init.el"
-#edit emacs config
+# edit emacs config
 alias editeconfig="emacs ~/.emacs.d/config.org"
 
 # helpful commands
@@ -31,10 +33,14 @@ alias editzshrc="emacs ~/.zshrc"
 alias editzshenv="emacs ~/.zshenv"     
 alias editaliases="emacs ~/.zsh_aliases"
 alias editfuncs="emacs ~/.zsh_functions"
+alias editzshoptions="emacs ~/.zsh_options"
 
 # github
 # Authenticate against github.com by reading the token from a file
 alias ghlogin="gh auth login --with-token < gtoken.txt" 
+# -a = tell the command to stage all files
+# -m = use the given commit message
+alias gcc="git commit -am"
 
 # rust specific
 alias launch='basic-http-server .'
