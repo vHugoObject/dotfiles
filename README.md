@@ -1,2 +1,2 @@
 # My dotfiles
-My config files for .zsh on MacOS
+My config files for zsh on MacOS. 
