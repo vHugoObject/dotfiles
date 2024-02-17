@@ -7,11 +7,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files in completion
 
-
-# load custom prompt
-autoload -Uz promptinit
-promptinit
-
 # set options
 setopt AUTO_CD
 setopt NO_SHORT_LOOPS

@@ -44,4 +44,4 @@ alias gcc="git commit -am"
 
 # rust specific
 alias launch='basic-http-server .'
-alias cwasm='cargo build --target wasm32-unknown-unknown'OB
+alias cwasm='cargo build --target wasm32-unknown-unknown'
