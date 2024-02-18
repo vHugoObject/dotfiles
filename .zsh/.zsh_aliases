@@ -24,8 +24,8 @@ alias fsearch="ls | grep"
 alias agrep="alias | grep"
 # open current directory in finder
 alias finder="open -a Finder ./"
-# make a new directory and open it
-alias mkd="mkdir -p $1 && cd $1"
+
+
 
 # shortcuts to edit dotfiles
 alias cddot="cd ~/dotfiles"
