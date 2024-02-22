@@ -37,7 +37,7 @@ alias editzshoptions="emacs ~/.zsh_options"
 
 # github
 # Authenticate against github.com by reading the token from a file
-alias ghlogin="gh auth login --with-token < gtoken.txt" 
+alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" 
 # -a = tell the command to stage all files
 # -m = use the given commit message
 alias gcc="git commit -am"
