@@ -10,6 +10,6 @@ SAVEHIST=1000
 
 
 # link configs files
-[ -e "${HOME}/.zsh_aliases" ] && source "${HOME}/.zsh_aliases"
-[ -e "${HOME}/.zsh_functions" ] && source "${HOME}/.zsh_functions"
-[ -e "${HOME}/.zsh_options" ] && source "${HOME}/.zsh_options"
+[[ -e "${HOME}/.zsh_aliases" ]] && source "${HOME}/.zsh_aliases"
+[[ -e "${HOME}/.zsh_functions" ]] && source "${HOME}/.zsh_functions"
+[[ -e "${HOME}/.zsh_options" ]] && source "${HOME}/.zsh_options"
