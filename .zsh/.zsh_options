@@ -7,6 +7,22 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files in completion
 
+autoload -U promptinit
+promptinit
+
+# Minimal prompt
+PROMPT=$(cat myprompt.txt) 
+
+# Display the current branch on rightside of the prompt
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT='${vcs_info_msg_0_}'
+# PROMPT='${vcs_info_msg_0_}%# '
+zstyle ':vcs_info:git:*' formats '%b'
+
+
 # set options
 setopt AUTO_CD
 setopt NO_SHORT_LOOPS
@@ -20,3 +36,4 @@ setopt HIST_SAVE_NO_DUPS
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY
+
