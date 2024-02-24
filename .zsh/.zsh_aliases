@@ -34,10 +34,11 @@ alias editzshenv="emacs ~/.zshenv"
 alias editaliases="emacs ~/.zsh_aliases"
 alias editfuncs="emacs ~/.zsh_functions"
 alias editzshoptions="emacs ~/.zsh_options"
+alias editzshexports="emacs ~/.zsh_exports"
+
 
 # github
-# Authenticate against github.com by reading the token from a file
-alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" 
+alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" # Authenticate against github.com by reading the token from a file
 # -a = tell the command to stage all files
 # -m = use the given commit message
 alias gcc="git commit -am"
