@@ -9,6 +9,8 @@ export PATH="/usr/bin/python3:${PATH}"
 export ALTERNATE_EDITOR="" 	       		  # Blank in order to force emacs to run even if daemon hasn't started
 export EDITOR="/opt/homebrew/bin/emacsclient -t"                  # $EDITOR opens in terminal
 export VISUAL="/opt/homebrew/bin/emacsclient -t -a emacs"         # $VISUAL opens in GUI mode
+export BROWSER="/Applications/Firefox.app"
+
 
 export SHELL_SESSIONS_DISABLE=1 #disable .zsh_sessions
 
