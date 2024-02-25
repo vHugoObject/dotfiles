@@ -4,4 +4,4 @@
 **/.DS_Store
 .zsh/.zcompdump
 # An asterisk "*" matches anything except a slash
-.**/#*
+**/#*
