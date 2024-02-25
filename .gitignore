@@ -1,4 +1,7 @@
 .zsh/.zsh_sessions
 .zsh/.zsh_history
-.zsh/.DS_Store
+# A leading "**" followed by a slash means match in all directories.
+**/.DS_Store
 .zsh/.zcompdump
+# An asterisk "*" matches anything except a slash
+.zsh/#*
