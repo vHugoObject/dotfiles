@@ -1,0 +1,9 @@
+#!/bin/zsh
+# %h = Current history event number.                                                                          
+# %? = return status of the last command                                                                      
+# %F = start or stop for foreground color, followed by color to set in braces                                 
+# %B = start or stop boldface mode                                                                            
+# %# =  if # if the shell is running with privileges, a % if not                                              
+# %1~ = trailing component of the current working directory                                                   
+# %(x.true-text.false-text) = prompt is green if last comand worked otherwise red                             
+PROMPT='%h%(?.%F{green}.%F{red}?%?)%f %B%F{green}%1~%f%b %# > '
