@@ -7,13 +7,8 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)               # Include hidden files in completion
 
-autoload -U promptinit
-promptinit
 
-# Minimal prompt
-PROMPT=$(cat myprompt.txt) 
-
-# Display the current branch on rightside of the prompt
+# Display the current git branch on rightside of the prompt
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
