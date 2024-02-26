@@ -44,7 +44,7 @@ alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" # Authenticate aga
 alias gcc="git commit -am"
 alias gp="git push" #Update remote refs along with associated objects
 alias editcommits="git rebase -i HEAD~3" # edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
-
+alias newgist="gh gist create -p -w" # create a new gist, -p = public, -w = open with your default browser
 
 # rust specific
 alias launch='basic-http-server .'
