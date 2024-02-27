@@ -8,7 +8,7 @@ create_symlinks() {
     # type -d: only look for directories
     # get files in .zsh folder
     
-    script_dir=$(find $(pwd) -type d -name '.zsh')
+    script_dir=$(find $(pwd) -type d -name $1)
 
     # use find to find all zsh dotfiles
     # . represents the current directory
@@ -17,7 +17,7 @@ create_symlinks() {
     # as long as they are not named .DS_Store
     # use xargs to call basename on each filepath so we only get filenames
     
-    for file in $(find . -maxdepth 2 -path './.zsh/*' \! -name '.DS_Store' | xargs -n 1 basename);do
+    for file in $(find . -maxdepth 2 -path "./${1}/*" \! -name '.DS_Store' | xargs -n 1 basename);do
 	 echo "Creating symlink to $file in home directory."
 
          # create symlinks for each file in $HOME 
@@ -34,5 +34,17 @@ create_symlinks() {
     
 }
 
-create_symlinks
+install() {
+
+    if [[ -n "${CODESPACES}" ]]; then
+	create_symlinks ".zsh"
+    else
+	create_symlinks ".zsh"
+    fi
+    
+    
+}
+
+install
+
 
