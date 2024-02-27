@@ -37,9 +37,9 @@ create_symlinks() {
 install() {
 
     if [[ -n "${CODESPACES}" ]]; then
-	create_symlinks ".zsh"
+	create_symlinks "codespaces"
     else
-	create_symlinks ".zsh"
+	create_symlinks "mac"
     fi
     
     
