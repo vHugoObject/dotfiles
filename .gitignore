@@ -1,10 +1,18 @@
+
 .zsh/.zsh_sessions
 .zsh/.zsh_history
+.zsh/.zcompdump
+
 # A leading "**" followed by a slash means match in all directories.
 **/.DS_Store
-.zsh/.zcompdump
 # An asterisk "*" matches anything except a slash
 **/#*
 **/gnupg
 # Ignore all symlinks in all folders
 **/*~
+
+**/auto-save-list/**
+**/elpa/**
+**/tutorial/**
+**/cookies
+
