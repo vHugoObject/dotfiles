@@ -1,0 +1,6 @@
+set autoindent
+# cut from cursor
+set cut
+# save on exit
+set tempfile
+set wordbounds
