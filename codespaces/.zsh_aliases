@@ -1,15 +1,5 @@
 #!/bin/zsh
 
-# emacs stuff
-# start the emacs daemon so emacs can run in terminal
-alias emacsdaemon="emacs --daemon"
-# start emacs in terminal
-alias emacs="emacsclient"
-# edit emacs init.el
-alias editemacs="emacs ~/.emacs.d/init.el"
-# edit emacs config
-alias editeconfig="emacs ~/.emacs.d/config.org"
-
 # helpful commands
 # ls with -A option so that dotfiles are always listed
 alias ls="ls -A -C"
@@ -26,21 +16,7 @@ alias agrep="alias | grep"
 alias finder="open -a Finder ./"
 
 
-
-# shortcuts to edit dotfiles
-alias cddot="cd ~/dotfiles"
-alias editzshrc="emacs ~/.zshrc"     
-alias editzshenv="emacs ~/.zshenv"     
-alias editaliases="emacs ~/.zsh_aliases"
-alias editfuncs="emacs ~/.zsh_functions"
-alias editzshoptions="emacs ~/.zsh_options"
-alias editzshexports="emacs ~/.zsh_exports"
-
-
 # github
-alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" # Authenticate against github.com by reading the token from a file
-# -a = tell the command to stage all files
-# -m = use the given commit message
 alias gcc="git commit -am"
 alias gp="git push" #Update remote refs along with associated objects
 alias editcommits="git rebase -i HEAD~3" # edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
