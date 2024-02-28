@@ -7,7 +7,7 @@
 	email = echase3@gmail.com
 	name = VictorHugoPilled
 [core]
-	editor = emacs
+	editor = code
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
