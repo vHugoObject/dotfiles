@@ -36,6 +36,9 @@ create_symlinks() {
 
 install() {
 
+    # The folder name with the dotfiles to be installed is based on whether the codespaces env variable exist
+    # -n = does the variable that follows expand to a string of non-zero length
+    
     if [[ -n "${CODESPACES}" ]]; then
 	create_symlinks "codespaces"
     else
