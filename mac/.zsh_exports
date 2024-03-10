@@ -11,6 +11,8 @@ export EDITOR="/opt/homebrew/bin/emacsclient -t"                  # $EDITOR open
 export VISUAL="/opt/homebrew/bin/emacsclient -t -a emacs"         # $VISUAL opens in GUI mode
 export BROWSER="/Applications/Firefox.app/Contents/MacOS/firefox"
 
+# startup file for python interactive console
+export PYTHONSTARTUP="${HOME}/pythonstartup.py"
 
 export SHELL_SESSIONS_DISABLE=1 #disable .zsh_sessions
 
