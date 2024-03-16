@@ -24,7 +24,12 @@ alias -g fsearch="ls | grep"
 alias -g agrep="alias | grep"
 # open current directory in finder
 alias -g finder="open -a Finder ./"
-
+# repeat the last command
+# -s stands for the following
+# pat  Pattern (string to find)
+# rep  Replace (new string)
+# -s is followed by cmd  command to retrieve from history (string or number)
+alias -g repeat="fc -s"
 
 
 # shortcuts to edit dotfiles
