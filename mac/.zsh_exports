@@ -1,5 +1,9 @@
 #!/bin/zsh
 
+# Declare a set for path variables
+# -U = Declare a set. For variables with shared values, it should be set on all interfaces
+typeset -U PATH path
+
 # set the PATH variables
 export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH="/opt/homebrew/bin:${PATH}"
