@@ -8,7 +8,7 @@ typeset -U PATH path
 export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH="/opt/homebrew/bin:${PATH}"
 export PATH="/usr/bin/python3:${PATH}"
-
+export PATH="${HOME}/.cargo/bin:${PATH}"
 
 export ALTERNATE_EDITOR="" 	       		  # Blank in order to force emacs to run even if daemon hasn't started
 export EDITOR="/opt/homebrew/bin/emacsclient -t"                  # $EDITOR opens in terminal
