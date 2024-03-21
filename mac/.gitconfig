@@ -8,6 +8,7 @@
 	name = VictorHugoPilled
 [core]
 	editor = emacs
+	excludesfiles=~/.gitignore
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
