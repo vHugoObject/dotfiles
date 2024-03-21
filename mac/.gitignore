@@ -1,7 +1,15 @@
 # Global .gitignore 
+
 **/.DS_Store
+
 # An asterisk "*" matches anything except a slash
 **/#*
+
 **/gnupg
+
 # Ignore all symlinks in all folders
 **/*~
+
+# General
+log/
+*.log
