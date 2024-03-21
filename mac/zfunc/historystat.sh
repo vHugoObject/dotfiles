@@ -8,5 +8,5 @@
 
 historyStat(){
 
-    history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head $1
+    history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
 }
