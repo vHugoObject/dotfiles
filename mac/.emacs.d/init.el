@@ -10,6 +10,8 @@
 (setq inhibit-startup-message t)
 (setq dired-kill-when-opening-new-dired-buffer t)
 
+(setq display-line-numbers t)
+(setq create-lockfiles nil)
 
 (defun goto-init-file ()
   "Open the init file."
@@ -32,6 +34,8 @@
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))
 
+
+
 ;; path management
 (use-package exec-path-from-shell
   :ensure t)
@@ -45,9 +49,7 @@
  ;; If there is more than one, they won't work right.
  '(browse-url-browser-display nil)
  '(browse-url-firefox-new-window-is-tab t)
- '(create-lockfiles nil)
- '(display-line-numbers t)
- '(package-selected-packages '(exec-path-from-shell)))
+  '(package-selected-packages '(exec-path-from-shell)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
