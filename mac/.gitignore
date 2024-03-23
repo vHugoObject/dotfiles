@@ -13,3 +13,6 @@
 # General
 log/
 *.log
+
+# For Apps Scripts
+**/.clasp.json
