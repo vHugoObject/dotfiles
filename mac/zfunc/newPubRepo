@@ -1,0 +1,4 @@
+# create a new public repo
+function newPubRepo(){
+    gh repo create $1 --public --source=. --remote=upstream --push 
+}

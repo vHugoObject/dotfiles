@@ -1,0 +1,15 @@
+function newScript() {
+
+    # create the shebang
+    shebang=$(getShebang $1)
+
+    #create the file and append the shebang to the new file
+    touch $1 && echo $shebang >> $1
+
+    #if the file exists, make it executable
+    if [[ -e $1 ]];then
+	makeExec $1
+    fi
+    #open the file in emacs
+    emacs $1
+}

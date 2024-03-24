@@ -1,0 +1,16 @@
+function getShebang(){
+
+    #get the filetype of the argument
+    aType=$(getFileType $1)
+
+    #shebangs for the array
+    shShebang='#!/bin/zsh'
+    pyShebang='#!/usr/bin/python3'
+    zunitShebang="#!/usr/bin/env zunit"
+
+    #array containing file types for the shebang
+    typeset -A fTypes=(py $pyShebang sh $shShebang zunit $zunitShebang)
+
+    #index the array with the type
+    echo ${fTypes[$aType]}
+}

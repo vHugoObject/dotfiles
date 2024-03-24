@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+# turn functions path into a set
+typeset -U fpath
+fpath=(~/zfunc $fpath)                        
+#autoload functions
+for func in $^fpath/*(N-.x:t);do autoload -Uz $func;done
+
+
+
+
+
+
+
+
+
+
+

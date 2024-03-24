@@ -1,0 +1,6 @@
+#make a script executable
+#755 makes executable
+#$1 is filename
+function makeExec() {
+    chmod 755 $1	 
+}

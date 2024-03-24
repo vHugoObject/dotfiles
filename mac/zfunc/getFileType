@@ -1,0 +1,7 @@
+function getFileType(){
+
+    #returns the file extension                                               
+    #by finding the index of the                                              
+    #period
+    echo ${1:${1[(i).?]}}
+}
