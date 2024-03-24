@@ -20,4 +20,5 @@ for func in $^fpath/*(N-.:t);do autoload -Uz $func;done
 [[ -e "${HOME}/.zsh_aliases" ]] && source "${HOME}/.zsh_aliases"
 [[ -e "${HOME}/.zsh_options" ]] && source "${HOME}/.zsh_options"
 [[ -e "${HOME}/.zsh_prompt" ]] && source "${HOME}/.zsh_prompt"
+[[ -e "${HOME}/setting.sh" ]] && source "${HOME}/setting.sh"
 
