@@ -12,7 +12,7 @@ SAVEHIST=1000
 typeset -U fpath
 fpath=(~/zfunc $fpath)                        
 #autoload functions
-for func in $^fpath/*(N-.x:t);do autoload -Uz $func;done
+for func in $^fpath/*(N-.:t);do autoload -Uz $func;done
 
 
 # link configs files if they exist
