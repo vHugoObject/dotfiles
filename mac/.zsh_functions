@@ -5,6 +5,12 @@ function my_name()
   	whoami
  }
 
+# to be used as hook
+function do-ls(){
+    # ls when we change directories except if we go home
+    [[ ! $(pwd) == ~ ]] && emulate -L zsh && ls
+ }
+ 
 function my_disk_space()
  {
      #Base variables for disk space
