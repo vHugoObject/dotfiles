@@ -1,0 +1,8 @@
+function lowerCaseNoSpace(){
+
+    # read input
+    # use L flag to make all characters lowercase
+    # use tr to remove any spaces
+    read n;  echo ${(L)n} | tr -d " "
+
+}

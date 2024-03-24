@@ -6,7 +6,7 @@ bindkey -e
 # Save command history
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=5000
-SAVEHIST=1000
+SAVEHIST=5000
 
 # turn functions path into a set
 typeset -U fpath

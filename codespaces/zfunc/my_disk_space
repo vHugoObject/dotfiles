@@ -1,0 +1,13 @@
+function my_disk_space()
+ {
+     #Base variables for disk space
+     totalSpace=2451100000
+     osSize=157600000
+     realSpace=$(( totalSpace-osSize ))
+     #use du and awk to get sum of of all files from the first column
+     #du output
+     #pass the real available space variable to awk using -v
+     #print out available space, total disk space used and the disk size
+     du ~ | awk -v total="$realSpace" '{sum+=$1} END{avail=total-sum;print "available_space:",avail;
+     	       	      			 	   print "used_space:",sum; print "total_disk_space:",total}'
+ }

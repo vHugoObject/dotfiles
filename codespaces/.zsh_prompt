@@ -7,3 +7,6 @@
 # %1~ = trailing component of the current working directory                                                   
 # %(x.true-text.false-text) = prompt is green if last comand worked otherwise red                             
 PROMPT='%h%(?.%F{green}. %F{red}?%?)%f %B%F{green}%1~%f%b %# > '
+
+# ls when working directory changes
+add-zsh-hook chpwd do-ls
