@@ -1,5 +1,5 @@
 # to be used as hook
 function do-ls(){
     # ls when we change directories except if we go home
-    [[ ! $(pwd) == ~ ]] && emulate -L zsh && ls
+    [[ ! $(pwd) == ~ ]] && emulate -L zsh && ls -a
  }
