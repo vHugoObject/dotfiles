@@ -47,7 +47,7 @@ alias editzshexports="emacs ~/.zsh_exports"
 alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" # Authenticate against github.com by reading the token from a file
 # -a = tell the command to stage all files
 # -m = use the given commit message
-alias gcc="git commit -am"
+alias gc="git commit -am"
 alias -g  gp="git push" #Update remote refs along with associated objects
 alias editcommits="git rebase -i HEAD~3" # edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
 alias newgist="gh gist create -p -w" # create a new gist, -p = public, -w = open with your default browser
