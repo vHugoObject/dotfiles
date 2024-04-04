@@ -26,6 +26,15 @@
   (kill-emacs))
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
+
+;; path management
+(use-package exec-path-from-shell
+  :ensure t)
+;; necessary to get packages to install on mac
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+
 ;; package management
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -34,28 +43,4 @@
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))
 
-
-
-;; path management
-(use-package exec-path-from-shell
-  :ensure t)
-;; necessary to get packages to install on mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(browse-url-browser-display nil)
- '(browse-url-firefox-new-window-is-tab t)
-  '(package-selected-packages '(exec-path-from-shell)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-
+(require 'rust-mode)

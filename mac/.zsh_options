@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # load completion 
-autoload -U compinit
+#autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
@@ -9,7 +9,7 @@ _comp_options+=(globdots)               # Include hidden files in completion
 
 
 # Display the current git branch on rightside of the prompt
-autoload -Uz vcs_info
+#autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
