@@ -42,15 +42,21 @@ alias editfuncs="emacs ~/.zsh_functions"
 alias editzshoptions="emacs ~/.zsh_options"
 alias editzshexports="emacs ~/.zsh_exports"
 
-
-# github
-alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" # Authenticate against github.com by reading the token from a file
+#git
 # -a = tell the command to stage all files
 # -m = use the given commit message
 alias gc="git commit -am"
-alias -g  gp="git push" #Update remote refs along with associated objects
-alias editcommits="git rebase -i HEAD~3" # edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
-alias newgist="gh gist create -p -w" # create a new gist, -p = public, -w = open with your default browser
+# Update remote refs along with associated objects
+alias -g  gp="git push"
+# edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
+alias editcommits="git rebase -i HEAD~3" 
+alias gs="git status"
+
+# github
+# Authenticate against github.com by reading the token from a file
+alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" 
+# create a new gist, -p = public, -w = open with your default browser
+alias newgist="gh gist create -p -w" 
 
 # rust specific
 alias launch='basic-http-server .'
