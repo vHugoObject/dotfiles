@@ -54,9 +54,9 @@
 ;; ! for a timestamp
 ;; @ for a note with a timestamp
 (setq org-todo-keywords
-           '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+           '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
-					;
+			
 ;; add habits to org-modules
 (add-to-list 'org-modules 'org-habit t)
 
