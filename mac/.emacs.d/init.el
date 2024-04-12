@@ -64,5 +64,5 @@
 (setq org-treat-insert-todo-heading-as-state-change t)
 
 ;; log into LOGBOOK drawer
-(setq org-log-into-drawer t)
+(setq org-log-into-drawer "LOGBOOK")
 
