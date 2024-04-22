@@ -10,6 +10,7 @@
 (setq inhibit-startup-message t)
 (setq dired-kill-when-opening-new-dired-buffer t)
 
+
 (setq display-line-numbers t)
 (setq create-lockfiles nil)
 
@@ -43,12 +44,21 @@
 (setq package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))
-;; for 
+
+;; directory load custom packages from
+(add-to-list 'load-path '~/.emacs.d/custom-packages')
+
+;; packages
 (require 'rust-mode)
+(require 'spray)
 
-
+;; shortcut for spray reader
+(global-set-key (kbd "<f6>") 'spray-mode)
 
 ;; org-mode settings
+
+;; add habits to org-modules
+(add-to-list 'org-modules 'org-habit t)
 
 ;; define global TODO keywords
 ;; ! for a timestamp
@@ -57,9 +67,6 @@
            '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
 			
-;; add habits to org-modules
-(add-to-list 'org-modules 'org-habit t)
-
 ;; log TODO creation
 (setq org-treat-insert-todo-heading-as-state-change t)
 

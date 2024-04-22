@@ -16,6 +16,9 @@ create_symlinks() {
     # use path to get all files in the .zsh path
     # as long as they are not named .DS_Store
     # use xargs to call basename on each filepath so we only get filenames
+    # use xargs -I to create a variable argument
+    # {} is the argument list marker
+    # -I replace occurrences of the replace-str, i.e. {}, with the names read into xargs
     
     for file in $(find . -maxdepth 2 -path "./${1}/*" \! -name '.DS_Store' | xargs -n 1 basename);do
 	 echo "Creating symlink to $file in home directory."
