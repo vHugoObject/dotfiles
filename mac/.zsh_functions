@@ -4,6 +4,7 @@
 typeset -U fpath
 fpath=(~/zfunc $fpath)                        
 #autoload functions
+# ^ = negates all qualifiers following it
 for func in $^fpath/*(N-.:t);do autoload -Uz $func;done
 
 
