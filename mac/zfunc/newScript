@@ -11,5 +11,6 @@ function newScript() {
 	makeExec $1
     fi
     #open the file in emacs
-    emacs $1
+    emacs --daemon
+    emacsclient -t $1
 }
