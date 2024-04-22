@@ -1,10 +1,10 @@
 #!/bin/zsh
 
 # emacs stuff
-# start the emacs daemon so emacs can run in terminal
-alias emacsdaemon="emacs --daemon"
 # start emacs in terminal
-alias emacs="emacsclient"
+alias -g emacs="emacsclient"
+# start the emacs daemon so emacs can run in terminal
+alias -g emacsdaemon="emacs --daemon"
 # edit emacs init.el
 alias editemacs="emacs ~/.emacs.d/init.el"
 # edit emacs config
