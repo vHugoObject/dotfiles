@@ -1,4 +1,0 @@
-#search your list of last commands
-function hg() {
-    history | grep "$1"
-}
