@@ -11,7 +11,6 @@
 (setq dired-kill-when-opening-new-dired-buffer t)
 
 
-(setq display-line-numbers t)
 (setq create-lockfiles nil)
 
 (defun goto-init-file ()
@@ -46,7 +45,7 @@
                          ("melpa"     . "https://melpa.org/packages/")))
 
 ;; directory load custom packages from
-(add-to-list 'load-path '~/.emacs.d/custom-packages')
+;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 ;; packages
 (require 'rust-mode)
@@ -58,7 +57,8 @@
 ;; org-mode settings
 
 ;; add habits to org-modules
-(add-to-list 'org-modules 'org-habit t)
+(require 'org)
+(add-to-list 'org-modules "org-habit")
 
 ;; define global TODO keywords
 ;; ! for a timestamp
@@ -80,3 +80,16 @@
   :config (codespaces-setup)
   :bind ("C-c S" . #'codespaces-connect))
     
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(use-package-ensure-system-package spray rust-mode exec-path-from-shell codespaces)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
