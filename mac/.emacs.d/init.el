@@ -73,3 +73,27 @@
 ;; log into LOGBOOK drawer
 (setq org-log-into-drawer "LOGBOOK")
 
+(let ((ghcs (assoc "ghcs" tramp-methods))
+      (ghcs-methods '((tramp-login-program "gh")
+                      (tramp-login-args (("codespace") ("ssh") ("-c") ("%h")))
+                      (tramp-remote-shell "/bin/sh")
+                      (tramp-remote-shell-login ("-l"))
+                      (tramp-remote-shell-args ("-c")))))
+  ;; just for debugging the methods
+  (if ghcs (setcdr ghcs ghcs-methods)
+    (push (cons "ghcs" ghcs-methods) tramp-methods)))
+
+;; provide codespace name completion for ghcs tramp method
+;; use C-j if you use ivy to kick in host completion
+(defun my/tramp-parse-codespaces (&optional nop)
+  (let ((results '())
+        (codespaces
+         (split-string
+          (shell-command-to-string
+           "gh codespace list --json name -q '.[].name'"))))
+    (dolist (name codespaces)
+      ;; tramp completion expects a list of (user host)
+      (add-to-list 'results (list nil name)))
+    results))
+
+(tramp-set-completion-function "ghcs" '((my/tramp-parse-codespaces "")))
