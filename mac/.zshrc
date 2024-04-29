@@ -7,7 +7,7 @@ bindkey -e
 HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
-
+HISTORY_IGNORE="(l|l *|ls|ls *|cd|cd ..*|cd -|z *|pwd|exit|caf)"
 
 # link configs files if they exist
 [[ -e "${HOME}/.zsh_functions" ]] && source "${HOME}/.zsh_functions"

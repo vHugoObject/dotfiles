@@ -79,7 +79,8 @@
   :ensure-system-package gh
   :config (codespaces-setup)
   :bind ("C-c S" . #'codespaces-connect))
-    
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
