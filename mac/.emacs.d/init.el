@@ -80,6 +80,19 @@
   :config (codespaces-setup)
   :bind ("C-c S" . #'codespaces-connect))
 
+;; org-pomodoro
+(use-package org-pomodoro
+  :ensure t
+  :commands (org-pomodoro)
+  :config
+  (setq
+   org-pomodoro-length 20
+   org-pomodoro-short-break-length 5
+   org-pomodoro-clock-break t
+   org-pomodoro-long-break-length 15
+   org-pomodoro-manual-break t
+   ))
+(global-set-key (kbd "M-C-p") 'org-pomodoro)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -87,7 +100,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(use-package-ensure-system-package spray rust-mode exec-path-from-shell codespaces)))
+   '(org-pomodoro use-package-ensure-system-package spray rust-mode exec-path-from-shell codespaces)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
