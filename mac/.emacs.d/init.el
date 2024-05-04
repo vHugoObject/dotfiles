@@ -91,8 +91,8 @@
    org-pomodoro-clock-break t
    org-pomodoro-long-break-length 15
    org-pomodoro-manual-break t
-   ))
-(global-set-key (kbd "M-C-p") 'org-pomodoro)
+   )
+  :bind ("M-C-p" . org-pomodoro))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
