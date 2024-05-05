@@ -26,16 +26,6 @@
   (kill-emacs))
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
-
-;; path management
-(use-package exec-path-from-shell
-  :ensure t)
-;; necessary to get packages to install on mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-
-
-
 ;; package management
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -44,55 +34,59 @@
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))
 
+
+;; setup use-package
+(use-package use-package-ensure-system-package :ensure t)
+(use-package exec-path-from-shell
+  :ensure t)
+;; necessary to get packages to install on mac
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
+
 ;; directory load custom packages from
 ;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
 
-;; packages
-(require 'rust-mode)
-(require 'spray)
+;; only load rust-mode when needed
+(use-package rust-mode
+  :defer t)
 
-;; shortcut for spray reader
-(global-set-key (kbd "<f6>") 'spray-mode)
+;; bind spray mode f6
+(use-package spray
+  :bind ("[f6]" . spray-mode))
 
 ;; org-mode settings
+;; autosave on TODO state chan ge
+(use-package org
+  :hook (org-trigger . save-buffer)
+  :custom
+  (org-todo-keywords
+   '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+  (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
+  (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
+  )
+  
+
 
 ;; add habits to org-modules
-(require 'org)
 (add-to-list 'org-modules "org-habit")
 
-;; define global TODO keywords
-;; ! for a timestamp
-;; @ for a note with a timestamp
-(setq org-todo-keywords
-           '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
-
-			
-;; log TODO creation
-(setq org-treat-insert-todo-heading-as-state-change t)
-
-;; log into LOGBOOK drawer
-(setq org-log-into-drawer "LOGBOOK")
-
-;; github codespaces
-(use-package use-package-ensure-system-package :ensure t)
-(use-package codespaces
-  :ensure-system-package gh
-  :config (codespaces-setup)
-  :bind ("C-c S" . #'codespaces-connect))
 
 ;; org-pomodoro
 (use-package org-pomodoro
   :ensure t
   :commands (org-pomodoro)
-  :config
-  (setq
-   org-pomodoro-length 20
-   org-pomodoro-short-break-length 5
-   org-pomodoro-clock-break t
-   org-pomodoro-long-break-length 15
-   org-pomodoro-manual-break t
+  :bind ("M-C-p" . org-pomodoro)
+  ;; autosave on pomodorro finish
+  :hook (org-pomodoro-finished . save-buffer)  
+  :custom
+   (org-pomodoro-length 20)
+   (org-pomodoro-short-break-length 5)
+   (org-pomodoro-clock-break t)
+   (org-pomodoro-long-break-length 15)
+   (org-pomodoro-manual-break t)
    )
-  :bind ("M-C-p" . org-pomodoro))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
