@@ -36,24 +36,25 @@
 
 
 ;; setup use-package
-(use-package use-package-ensure-system-package :ensure t)
+
 (use-package exec-path-from-shell
   :ensure t)
 ;; necessary to get packages to install on mac
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
-
+(use-package use-package-ensure-system-package :ensure t)
 
 ;; directory load custom packages from
 ;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 ;; only load rust-mode when needed
 (use-package rust-mode
-  :defer t)
+  :mode "\\.rs\\'"
+)
 
 ;; bind spray mode f6
 (use-package spray
-  :bind ("[f6]" . spray-mode))
+  :bind ("C-<f6>" . spray-mode))
 
 ;; org-mode settings
 ;; autosave on TODO state chan ge
@@ -64,21 +65,21 @@
    '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
   (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
   (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
+  (add-to-list 'org-modules "org-habit" "add habits to org-modules")
   )
   
-
-
-;; add habits to org-modules
-(add-to-list 'org-modules "org-habit")
 
 
 ;; org-pomodoro
 (use-package org-pomodoro
   :ensure t
   :commands (org-pomodoro)
-  :bind ("M-C-p" . org-pomodoro)
+  :bind ("M-C-o" . org-pomodoro)
   ;; autosave on pomodorro finish
-  :hook (org-pomodoro-finished . save-buffer)  
+  :hook ((org-pomodoro-finished . save-buffer)
+         (org-pomodoro-started . save-buffer)
+	 (org-pomodoro-break-finished . save-buffer)
+	 )
   :custom
    (org-pomodoro-length 20)
    (org-pomodoro-short-break-length 5)
