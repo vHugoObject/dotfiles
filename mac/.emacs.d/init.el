@@ -52,6 +52,11 @@
   :mode "\\.rs\\'"
 )
 
+(use-package js-mode
+  :mode ( "\\.js\\'" "\\.mjs\\'" "\\.jsx\\'")
+)
+
+
 ;; bind spray mode f6
 (use-package spray
   :bind ("C-<f6>" . spray-mode))
