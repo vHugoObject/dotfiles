@@ -94,8 +94,10 @@
 
 (use-package magit
   :ensure t
-  :bind ("C-x C-g" . magit-status)
-  )
+  :bind (("C-x C-g" . magit-status)
+        ("C-p C-p" . magit-push-to-remote)
+	 )
+ )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
