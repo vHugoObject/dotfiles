@@ -3,15 +3,13 @@
 (tool-bar-mode -1)
 
 (setq warning-minimum-level :emergency)
-
+(setq inhibit-startup-message t)
+(setq dired-kill-when-opening-new-dired-buffer t)
+(setq create-lockfiles nil)
 ;; don't ask for confirmation when opening symlinked file
 (setq vc-follow-symlinks t)     
 
-(setq inhibit-startup-message t)
-(setq dired-kill-when-opening-new-dired-buffer t)
 
-
-(setq create-lockfiles nil)
 
 (defun goto-init-file ()
   "Open the init file."
@@ -26,15 +24,6 @@
   (kill-emacs))
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
-;; package management
-(require 'package)
-(setq package-enable-at-startup nil)
-(package-initialize)
-(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-                         ("gnu"       . "http://elpa.gnu.org/packages/")
-                         ("melpa"     . "https://melpa.org/packages/")))
-
-
 ;; setup use-package
 
 (use-package exec-path-from-shell
@@ -43,6 +32,16 @@
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
 (use-package use-package-ensure-system-package :ensure t)
+
+
+;; package management
+(use-package package
+  :init (package-initialize)
+  :custom package-enable-at-startup nil
+	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
+                         ("gnu"       . "http://elpa.gnu.org/packages/")
+                         ("melpa"     . "https://melpa.org/packages/")))  				     )
+
 
 ;; directory load custom packages from
 ;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
@@ -93,6 +92,10 @@
    (org-pomodoro-manual-break t)
    )
 
+(use-package magit
+  :ensure t
+  :bind ("C-x C-g" . magit-status)
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -100,7 +103,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-pomodoro use-package-ensure-system-package spray rust-mode exec-path-from-shell codespaces)))
+   '(magit org-pomodoro use-package-ensure-system-package spray rust-mode exec-path-from-shell codespaces)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
