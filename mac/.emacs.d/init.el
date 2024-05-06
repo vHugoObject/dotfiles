@@ -36,7 +36,6 @@
 
 ;; package management
 (use-package package
-  :init (package-initialize)
   :custom package-enable-at-startup nil
 	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
@@ -95,7 +94,7 @@
 (use-package magit
   :ensure t
   :bind (("C-x C-g" . magit-status)
-        ("C-p C-p" . magit-push-to-remote)
+        ("C-c p" . magit-push-to-remote)
 	 )
  )
 
