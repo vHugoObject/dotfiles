@@ -1,6 +1,9 @@
-;; emacs housekeeping
+;; remove menu bar and toolbar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+;; force buffer menu to always open in other window
+(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
 (setq warning-minimum-level :emergency)
 (setq inhibit-startup-message t)
@@ -40,6 +43,8 @@
 	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
+
+
 
 
 ;; directory load custom packages from
