@@ -60,12 +60,18 @@
 )
 
 
-;; bind spray mode f6
+
 (use-package spray
-  :bind ("C-<f6>" . spray-mode))
+  :bind ("C-<f6>" . spray-mode)
+  :mode ("\\.epub\\'" "\\.txt\\'")
+  :custom ((spray-margin-left 90)
+	   (spray-margin-top 20)
+	   (spray-height 2000)
+	   )
+  )
 
 ;; org-mode settings
-;; autosave on TODO state chan ge
+;;n autosave on TODO state chan ge
 (use-package org
   :hook (org-trigger . save-buffer)
   :custom

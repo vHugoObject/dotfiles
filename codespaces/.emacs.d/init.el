@@ -47,6 +47,7 @@
 
 ;; only load rust-mode when needed
 (use-package rust-mode
+  :ensure t
   :mode "\\.rs\\'"
 )
 
@@ -55,41 +56,6 @@
 )
 
 
-;; bind spray mode f6
-(use-package spray
-  :bind ("C-<f6>" . spray-mode))
-
-;; org-mode settings
-;; autosave on TODO state chan ge
-(use-package org
-  :hook (org-trigger . save-buffer)
-  :custom
-  (org-todo-keywords
-   '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
-  (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
-  (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
-  (add-to-list 'org-modules "org-habit" "add habits to org-modules")
-  )
-  
-
-
-;; org-pomodoro
-(use-package org-pomodoro
-  :ensure t
-  :commands (org-pomodoro)
-  :bind ("M-C-o" . org-pomodoro)
-  ;; autosave on pomodorro finish
-  :hook ((org-pomodoro-finished . save-buffer)
-         (org-pomodoro-started . save-buffer)
-	 (org-pomodoro-break-finished . save-buffer)
-	 )
-  :custom
-   (org-pomodoro-length 20)
-   (org-pomodoro-short-break-length 5)
-   (org-pomodoro-clock-break t)
-   (org-pomodoro-long-break-length 15)
-   (org-pomodoro-manual-break t)
-   )
 
 (use-package magit
   :ensure t
