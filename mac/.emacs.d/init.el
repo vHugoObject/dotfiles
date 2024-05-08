@@ -66,14 +66,15 @@
   :mode ("\\.epub\\'" "\\.txt\\'")
   :custom ((spray-margin-left 90)
 	   (spray-margin-top 20)
-	   (spray-height 2000)
 	   )
   )
 
 ;; org-mode settings
 ;;n autosave on TODO state chan ge
 (use-package org
-  :hook (org-trigger . save-buffer)
+  :hook ((org-trigger . save-buffer)
+	 (org-mode . flyspell-mode)
+	 )
   :custom
   (org-todo-keywords
    '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
