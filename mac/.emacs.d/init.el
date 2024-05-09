@@ -39,7 +39,8 @@
 
 ;; package management
 (use-package package
-  :custom package-enable-at-startup nil
+  :custom
+  (package-enable-at-startup nil)
 	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
@@ -60,26 +61,32 @@
 )
 
 
+(use-package frame
+  :custom
+  (initial-frame-alist
+       '((top . 1) (left . 1) (width . 200) (height . 60)))
+ )
 
 (use-package spray
   :bind ("C-<f6>" . spray-mode)
   :mode ("\\.epub\\'" "\\.txt\\'")
-  :custom ((spray-margin-left 90)
-	   (spray-margin-top 20)
+  :custom ((spray-margin-left 80)
+	   (spray-margin-top 5)
+	   (set-frame-font "Iosevka Extended 12" nil t)
 	   )
   )
 
 ;; org-mode settings
-;;n autosave on TODO state chan ge
+;;nq autosave on TODO state chan ge
 (use-package org
-  :hook ((org-trigger . save-buffer)
+  :hook ((org-trigger . save-buffer)q
 	 (org-mode . flyspell-mode)
 	 )
   :custom
   (org-todo-keywords
    '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
   (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
-  (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
+  (org-log-into-drawer "LOGBOOK", "log into LOGBOOK drawer")
   (add-to-list 'org-modules "org-habit" "add habits to org-modules")
   )
   
