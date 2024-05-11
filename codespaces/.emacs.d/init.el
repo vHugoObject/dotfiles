@@ -42,9 +42,6 @@
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
 
 
-;; directory load custom packages from
-;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
-
 ;; only load rust-mode when needed
 (use-package rust-mode
   :ensure t
@@ -59,7 +56,7 @@
 
 (use-package magit
   :ensure t
-  :bind (("C-x C-g" . magit-status)
+  :bind (("C-c C-g" . magit-status)
         ("C-c p" . magit-push-to-remote)
 	 )
  )
