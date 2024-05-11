@@ -47,7 +47,6 @@
 
 
 
-
 ;; directory load custom packages from
 ;;(add-to-list 'load-path "~/.emacs.d/custom-packages")
 
@@ -112,7 +111,7 @@
 
 (use-package magit
   :ensure t
-  :bind (("C-x C-g" . magit-status)
+  :bind (("C-c C-g" . magit-status)
         ("C-c p" . magit-push-to-remote)
 	 )
  )
