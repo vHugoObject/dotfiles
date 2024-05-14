@@ -51,25 +51,22 @@
 
 ;; only load rust-mode when needed
 (use-package rust-mode
-  :ensure t
   :mode "\\.rs\\'"
 )
 
 (use-package js-mode
-  :ensure t
   :mode ( "\\.js\\'" "\\.mjs\\'")
 )
 
 (use-package web-mode
-  :ensure t
+
   :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
   :custom (web-mode-enable current-element-highlight t)
 )
 
 
 (use-package typescript-mode
-:ensure t
-:mode "\\.ts\\")
+:mode "\\.ts\\'")
 
 (use-package flycheck
 :hook (typescript-mode js-mode web-mode-enable)

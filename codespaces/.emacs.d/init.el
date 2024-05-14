@@ -66,7 +66,7 @@
 
 (use-package typescript-mode
 :ensure t
-:mode "\\.ts\\")
+:mode "\\.ts\\'")
 
 (use-package flycheck
 :hook (typescript-mode js-mode web-mode-enable)
