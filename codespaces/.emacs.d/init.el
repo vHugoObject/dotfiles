@@ -1,6 +1,9 @@
-;; emacs housekeeping
+;; remove menu bar and toolbar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+
+;; force buffer menu to always open in other window
+(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
 (setq warning-minimum-level :emergency)
 (setq inhibit-startup-message t)
@@ -8,7 +11,6 @@
 (setq create-lockfiles nil)
 ;; don't ask for confirmation when opening symlinked file
 (setq vc-follow-symlinks t)     
-
 
 
 (defun goto-init-file ()
@@ -36,10 +38,12 @@
 
 ;; package management
 (use-package package
-  :custom package-enable-at-startup nil
+  :custom
+  (package-enable-at-startup nil)
 	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
+
 
 
 ;; only load rust-mode when needed
@@ -49,10 +53,31 @@
 )
 
 (use-package js-mode
-  :mode ( "\\.js\\'" "\\.mjs\\'" "\\.jsx\\'")
+  :ensure t
+  :mode ( "\\.js\\'" "\\.mjs\\'")
+)
+
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
+  :custom (web-mode-enable current-element-highlight t)
 )
 
 
+(use-package typescript-mode
+:ensure t
+:mode "\\.ts\\")
+
+(use-package flycheck
+:hook (typescript-mode js-mode web-mode-enable)
+:custom (flycheck-add-mode 'javascript-eslint 'web-mode)
+)
+
+(use-package frame
+  :custom
+  (initial-frame-alist
+       '((top . 1) (left . 1) (width . 200) (height . 60)))
+ )
 
 (use-package magit
   :ensure t

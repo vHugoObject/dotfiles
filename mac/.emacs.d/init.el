@@ -13,7 +13,6 @@
 (setq vc-follow-symlinks t)     
 
 
-
 (defun goto-init-file ()
   "Open the init file."
   (interactive)
@@ -52,13 +51,30 @@
 
 ;; only load rust-mode when needed
 (use-package rust-mode
+  :ensure t
   :mode "\\.rs\\'"
 )
 
 (use-package js-mode
-  :mode ( "\\.js\\'" "\\.mjs\\'" "\\.jsx\\'")
+  :ensure t
+  :mode ( "\\.js\\'" "\\.mjs\\'")
 )
 
+(use-package web-mode
+  :ensure t
+  :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
+  :custom (web-mode-enable current-element-highlight t)
+)
+
+
+(use-package typescript-mode
+:ensure t
+:mode "\\.ts\\")
+
+(use-package flycheck
+:hook (typescript-mode js-mode web-mode-enable)
+:custom (flycheck-add-mode 'javascript-eslint 'web-mode)
+)
 
 (use-package frame
   :custom
@@ -78,7 +94,7 @@
 ;; org-mode settings
 ;;nq autosave on TODO state chan ge
 (use-package org
-  :hook ((org-trigger . save-buffer)q
+  :hook ((org-trigger . save-buffer)
 	 (org-mode . flyspell-mode)
 	 )
   :custom
