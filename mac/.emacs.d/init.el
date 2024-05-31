@@ -7,6 +7,8 @@
 ;; don't ask for confirmation when opening symlinked file
 (setopt vc-follow-symlinks t)
 
+(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
+
 (defun my-kill-emacs ()
 "save some buffers, then exit unconditionally"
 (interactive)
@@ -28,6 +30,11 @@
 	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
+
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+     )
 
 ;; only load rust-mode when needed
 (use-package rust-mode

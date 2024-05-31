@@ -1,3 +1,4 @@
+#+auto_tangle: t
 * emacs housekeeping
 #+begin_src emacs-lisp
   (menu-bar-mode -1)
@@ -12,7 +13,7 @@
 
 * force buffer menu to always open in other window
 #+name: force-buffer-menu
-#+begin_src
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 #+end_src
 
@@ -50,6 +51,15 @@
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
 
 #+end_src
+
+* setup autotangle mode
+#+begin_src emacs-lisp
+  (use-package org-auto-tangle
+    :defer t
+    :hook (org-mode . org-auto-tangle-mode)
+       )
+#+end_src
+
 
 * language specific modes
 ** rust mode
