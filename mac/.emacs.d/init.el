@@ -6,6 +6,9 @@
 (setopt create-lockfiles nil)
 ;; don't ask for confirmation when opening symlinked file
 (setopt vc-follow-symlinks t)
+;; for tramp
+(setq vc-handled-backends '(SVN Git))
+(setq remote-file-name-inhibit-locks t)
 
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
@@ -18,7 +21,8 @@
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 (eval-when-compile
-  (require 'use-package))
+    (require 'use-package))
+(use-package use-package-ensure-system-package :ensure t)
 
 (use-package package
   :custom
@@ -70,7 +74,7 @@
 	   )
   )
 
-;; autosave on TODO state chan ge
+;; autosave on TODO state change
 (use-package org
   :hook ((org-trigger . save-buffer)
 	 (org-mode . flyspell-mode)
@@ -120,6 +124,12 @@
         ("C-c p" . magit-push-to-remote)
 	 )
  )
+
+(use-package codespaces
+  :ensure-system-package gh
+  :config (codespaces-setup)
+  :bind ("C-c S" . #'codespaces-connect)
+  )
 
 (use-package cus-edit
   :custom

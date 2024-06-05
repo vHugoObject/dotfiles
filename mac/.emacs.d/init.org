@@ -8,7 +8,10 @@
 
   (setopt create-lockfiles nil)
   ;; don't ask for confirmation when opening symlinked file
-  (setopt vc-follow-symlinks t)     
+  (setopt vc-follow-symlinks t)
+  ;; for tramp
+  (setq vc-handled-backends '(SVN Git))
+  (setq remote-file-name-inhibit-locks t)
 #+end_src
 
 * force buffer menu to always open in other window
@@ -32,8 +35,9 @@
 
 * setup use-package
 #+begin_src emacs-lisp :tangle yes
-(eval-when-compile
-  (require 'use-package))
+  (eval-when-compile
+    (require 'use-package))
+(use-package use-package-ensure-system-package :ensure t)
 #+end_src
 
 
@@ -120,7 +124,7 @@
 * org mode setting
 ** setup org mode with use package
 #+begin_src emacs-lisp :tangle yes
-;; autosave on TODO state chan ge
+;; autosave on TODO state change
 (use-package org
   :hook ((org-trigger . save-buffer)
 	 (org-mode . flyspell-mode)
@@ -175,7 +179,7 @@
  )
 #+end_src
 
-* set up magit
+* setup magit
 #+begin_src emacs-lisp :tangle yes
 (use-package magit
   :ensure t
@@ -183,6 +187,16 @@
         ("C-c p" . magit-push-to-remote)
 	 )
  )
+#+end_src
+
+* setup codespaces.el
+#+begin_src emacs-lisp :tangle yes
+  (use-package codespaces
+    :ensure-system-package gh
+    :config (codespaces-setup)
+    :bind ("C-c S" . #'codespaces-connect)
+    )
+
 #+end_src
 
 * prevent custom edit from adding settings to init.el
