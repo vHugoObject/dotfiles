@@ -27,14 +27,8 @@
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 ;; setup use-package
-
-(use-package exec-path-from-shell
-  :ensure t)
-;; necessary to get packages to install on mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-(use-package use-package-ensure-system-package :ensure t)
-
+(eval-when-compile
+  (require 'use-package))
 
 ;; package management
 (use-package package

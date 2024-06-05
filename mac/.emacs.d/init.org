@@ -1,6 +1,6 @@
 #+auto_tangle: t
 * emacs housekeeping
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (menu-bar-mode -1)
   (tool-bar-mode -1)
   (setopt warning-minimum-level :emergency)
@@ -13,13 +13,13 @@
 
 * force buffer menu to always open in other window
 #+name: force-buffer-menu
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 #+end_src
 
 
 * custom function to quickly kill emacs
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (defun my-kill-emacs ()
   "save some buffers, then exit unconditionally"
   (interactive)
@@ -31,18 +31,14 @@
 
 
 * setup use-package
-#+begin_src emacs-lisp
-(use-package exec-path-from-shell
-  :ensure t)
-;; necessary to get packages to install on mac
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-(use-package use-package-ensure-system-package :ensure t)
+#+begin_src emacs-lisp :tangle yes
+(eval-when-compile
+  (require 'use-package))
 #+end_src
 
 
 * setup package sources
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package package
   :custom
   (package-enable-at-startup nil)
@@ -53,7 +49,7 @@
 #+end_src
 
 * setup autotangle mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
   (use-package org-auto-tangle
     :defer t
     :hook (org-mode . org-auto-tangle-mode)
@@ -63,7 +59,7 @@
 
 * language specific modes
 ** rust mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 ;; only load rust-mode when needed
 (use-package rust-mode
   :mode "\\.rs\\'"
@@ -71,14 +67,14 @@
 #+end_src
 
 ** javascript mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package js-mode
   :mode ( "\\.js\\'" "\\.mjs\\'")
 )
 #+end_src
 
 ** html mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package web-mode
 
   :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
@@ -87,13 +83,13 @@
 #+end_src
 
 ** typescript mode
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package typescript-mode
 :mode "\\.ts\\'")
 #+end_src
 
 ** setup linting for javascript
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package flycheck
 :hook (typescript-mode js-mode web-mode-enable)
 :custom (flycheck-add-mode 'javascript-eslint 'web-mode)
@@ -101,7 +97,7 @@
 #+end_src
 
 * initial frame size
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package frame
   :custom
   (initial-frame-alist
@@ -110,7 +106,7 @@
 #+end_src
 
 * spray-mode for reading
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package spray
   :bind ("C-<f6>" . spray-mode)
   :mode ("\\.epub\\'" "\\.txt\\'")
@@ -123,7 +119,7 @@
 
 * org mode setting
 ** setup org mode with use package
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 ;; autosave on TODO state chan ge
 (use-package org
   :hook ((org-trigger . save-buffer)
@@ -140,14 +136,14 @@
 #+end_src
 
 ** customize org-attach
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package org-attach
 :custom (org-attach-method 'l "set symbolic link as a default attachment method")
  )
 #+end_src
 
 ** setup org-pomodoro
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 ;; org-pomodoro
 (use-package org-pomodoro
   :ensure t
@@ -169,7 +165,7 @@
 #+end_src   
 
 * customize dired
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package dired
   :hook (dired-mode . (lambda ()
             (define-key dired-mode-map
@@ -180,7 +176,7 @@
 #+end_src
 
 * set up magit
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package magit
   :ensure t
   :bind (("C-c C-g" . magit-status)
@@ -190,7 +186,7 @@
 #+end_src
 
 * prevent custom edit from adding settings to init.el
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle yes
 (use-package cus-edit
   :custom
   (custom-file null-device "Don't store customizations"))
