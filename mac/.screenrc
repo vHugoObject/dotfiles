@@ -1,0 +1,17 @@
+# unbindall c-a as this prevents me from using emacs c-a
+bind ^a
+
+# switch to window 0 with F1
+bindkey -k k1 select 0
+# switch to window 1 with F2
+bindkey -k k2 select 1
+# switch to window 2 with F3
+bindkey -k k3 select 2
+# detach with F4
+bindkey -k k4 detach
+# new screen with F5
+bindkey -k k5 screen
+# get list of open windows with f6
+bindkey -k k6 windowlist -b
+# quit with F7
+bindkey -k k7 quit
