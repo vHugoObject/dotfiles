@@ -3,12 +3,17 @@
 # Declare a set for path variables
 # -U = Declare a set. For variables with shared values, it should be set on all interfaces
 typeset -U PATH path
+typeset -U FPATH fpath
 
 # set the PATH variables
 export PATH="/bin:/usr/bin:/usr/local/bin:${PATH}"
 export PATH="/opt/homebrew/bin:${PATH}"
 export PATH="/usr/bin/python3:${PATH}"
 export PATH="${HOME}/.cargo/bin:${PATH}"
+export FPATH="/usr/share/zsh/5.8/functions:${FPATH}"
+export FPATH="${HOME}/.zsh/completion:${FPATH}"
+export FPATH="${HOME}/zfunc:${FPATH}"
+
 
 export ALTERNATE_EDITOR="" 	       		  # Blank in order to force emacs to run even if daemon hasn't started
 export EDITOR="/opt/homebrew/bin/emacsclient -t"                  # $EDITOR opens in terminal

@@ -9,4 +9,5 @@
 PROMPT='%h%(?.%F{green}. %F{red}?%?)%f %B%F{green}%1~%f%b %# > '
 
 # ls when working directory changes
+autoload -U add-zsh-hook
 add-zsh-hook chpwd do-ls
