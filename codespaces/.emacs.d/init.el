@@ -13,11 +13,6 @@
 (setq vc-follow-symlinks t)     
 
 
-(defun goto-init-file ()
-  "Open the init file."
-  (interactive)
-  (find-file user-init-file))
-
 ;; fast quit
 (defun my-kill-emacs ()
   "save some buffers, then exit unconditionally"
@@ -67,11 +62,6 @@
 :custom (flycheck-add-mode 'javascript-eslint 'web-mode)
 )
 
-(use-package frame
-  :custom
-  (initial-frame-alist
-       '((top . 1) (left . 1) (width . 200) (height . 60)))
- )
 
 (use-package magit
   :ensure t
