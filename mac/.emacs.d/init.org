@@ -1,21 +1,30 @@
 #+auto_tangle: t
+
 * emacs housekeeping
 #+begin_src emacs-lisp :tangle yes
   (menu-bar-mode -1)
   (tool-bar-mode -1)
+  (scroll-bar-mode -1)
+  (show-paren-mode 1)
+  (line-number-mode 1)
+  (column-number-mode 1)
+  
+#+end_src
+
+* options
+#+begin_src emacs-lisp :tangle yes
   (setopt warning-minimum-level :emergency)
   (setopt inhibit-startup-message t)
-
-  (setopt create-lockfiles nil)
-  ;; don't ask for confirmation when opening symlinked file
-  (setopt vc-follow-symlinks t)
-  ;; for tramp
-  (setq vc-handled-backends '(SVN Git))
-  (setq remote-file-name-inhibit-locks t)
+  
+      (setopt create-lockfiles nil)
+      ;; don't ask for confirmation when opening symlinked file
+      (setopt vc-follow-symlinks t)
+      ;; for tramp
+      (setopt vc-handled-backends '(SVN Git))
+      (setopt remote-file-name-inhibit-locks t)
 #+end_src
 
 * force buffer menu to always open in other window
-#+name: force-buffer-menu
 #+begin_src emacs-lisp :tangle yes
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 #+end_src
@@ -124,19 +133,26 @@
 * org mode setting
 ** setup org mode with use package
 #+begin_src emacs-lisp :tangle yes
-;; autosave on TODO state change
-(use-package org
-  :hook ((org-trigger . save-buffer)
-	 (org-mode . flyspell-mode)
-	 )
-  :custom
-  (org-todo-keywords
-   '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))
-  (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
-  (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
-  (add-to-list 'org-modules "org-habit" "add habits to org-modules")
-  (org-log-done 'note)
-  )
+  ;; autosave on TODO state change
+  (use-package org
+    :hook ((org-trigger . save-buffer)
+	   (org-mode . flyspell-mode)
+	   )
+    :custom
+    (org-todo-keywords
+     '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))
+    (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
+    (org-log-into-drawer "LOGBOOK-NOTES" "log into LOGBOOK drawer")
+    (org-log-done 'time)
+    (org-startup-align-all-tables t)
+    )
+#+end_src
+
+** customize org-table
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-table
+  :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
+   )
 #+end_src
 
 ** customize org-attach
@@ -145,6 +161,33 @@
 :custom (org-attach-method 'l "set symbolic link as a default attachment method")
  )
 #+end_src
+
+** customize org-clock
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-clock
+  :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
+	  (org-clock-persist t "save the running clock when emacs is closed")
+	  (org-clock-into-drawer "LOGBOOK-CLOCK")
+   )
+#+end_src
+
+** customize org-duration
+#+begin_src emacs-lisp :tangle yes
+(use-package org-duration
+:custom (org-duration-format '(special . h:mm) "Duration format will always be hours:minutes")
+ )
+#+end_src
+
+** customize org-habit
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-habit
+  :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
+	  (org-habit-preceding-days )
+	  (org-habit-)
+	  (org-habit-graph-column)
+   )
+#+end_src
+
 
 ** setup org-pomodoro
 #+begin_src emacs-lisp :tangle yes
@@ -170,13 +213,16 @@
 
 * customize dired
 #+begin_src emacs-lisp :tangle yes
-(use-package dired
-  :hook (dired-mode . (lambda ()
-            (define-key dired-mode-map
-              (kbd "C-c C-x a")
-              #'org-attach-dired-to-subtree)))
-  :custom ((dired-kill-when-opening-new-dired-buffer t))	     
- )
+  (use-package dired
+    :hook (dired-mode . (lambda ()
+	      (define-key dired-mode-map
+		(kbd "C-c C-x a")
+		#'org-attach-dired-to-subtree)))
+    :custom ((dired-recursive-deletes t)
+	     (dired-vc-rename-file t)
+	     (dired-create-destination-dirs 'ask)
+	     )	     
+   )
 #+end_src
 
 * setup magit
