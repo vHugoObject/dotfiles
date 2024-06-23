@@ -88,9 +88,10 @@
   (org-todo-keywords
    '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))
   (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
-  (org-log-into-drawer "LOGBOOK-NOTES" "log into LOGBOOK drawer")
+  (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")
   (org-log-done 'time)
   (org-startup-align-all-tables t)
+  (org-startup-folded 'show2levels)
   )
 
 (use-package org-table
@@ -104,11 +105,10 @@
 (use-package org-clock
 :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
 	(org-clock-persist t "save the running clock when emacs is closed")
-	(org-clock-into-drawer "LOGBOOK-CLOCK")
  )
 
 (use-package org-duration
-:custom (org-duration-format '(special . h:mm) "Duration format will always be hours:minutes")
+:custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
  )
 
 (use-package org-habit
@@ -117,6 +117,20 @@
 	(org-habit-)
 	(org-habit-graph-column)
  )
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "emacs-lisp"))) ;don't ask for emacs-lisp
+(use-package ob-core
+:custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+ )
+
+(use-package org-caputre
+  :custom (org-capture-templates
+	   '(("c" "Les calories" table-line (file+headline "~/org/la-nourriture.org" "Les calories")
+	      "|%T|%^{PROMPT|500}|")
+	     ("s" "La sucre" table-line (file+headline "~/org/la-nourriture.org" "La sucre")
+	      "|%T|%^{PROMPT}|")))
+  )
 
 ;; org-pomodoro
 (use-package org-pomodoro
@@ -146,6 +160,15 @@
 	   (dired-create-destination-dirs 'ask)
 	   )	     
  )
+
+(use-package tramp
+  :custom (add-to-list 'tramp-remote-path 'tramp-own-path)
+	  (add-to-list 'tramp-connection-properties
+	   (list (regexp-quote "/ghcs")
+		 "remote-shell" "/usr/bin/zsh"))
+	  (customize-set-variable 'tramp-encoding-shell "/usr/bin/zsh")
+
+  )
 
 (use-package magit
   :ensure t
