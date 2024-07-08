@@ -1,0 +1,78 @@
+#+auto_tangle: t
+* Utilities
+#+NAME: utilities
+#+BEGIN_SRC emacs-lisp :tangle yes :session table-functions
+
+  (defun list-average (List)
+    "Get the average of a list"
+    (/ (apply '+ List) (length List))
+    )
+  (defun hash-table-to-list (hashtable)
+    "Convert a hashtable into a list"
+    (let ((new-list nil))
+      (maphash
+       (lambda (k v)
+	 (push (list k v) new-list))
+       hashtable)
+      (reverse new-list)))
+  (defun average-of-hashtable-values (hashtable)
+    "Get the average of the values in a hashtable"
+    (let ((total 0)
+	  (entries (hash-table-count hashtable))
+	  )
+      (maphash
+       (lambda (_ v)
+	 (setq total (+ v total)))
+       hashtable)
+      (/ total entries)))
+
+  (defun date-from-timestamp (timestamp &optional formatter)
+    "extract day from timestamp e.g. <2024-05-19 Sun> becomes 06-28-24
+     ,unless another format stirng is passed as an optional argument"
+    (format-time-string (if formatter formatter "%m-%d-%Y") (date-to-time timestamp))
+    )
+  (defun sum-puthash (key value hashtable)
+    "Add values when a key already exists in hash table instead of overwriting"
+    (let ((value-to-add (+ value (gethash key hashtable 0))))
+      (puthash key value-to-add hashtable))
+    )
+
+#+END_SRC
+
+* Org-table-functions
+#+NAME: org-table-functions
+#+begin_src emacs-lisp :tangle yes :session table-functions
+
+  (defun org-table-to-hashtable(orgtable &optional keyfunction)
+    "Convert an org-table into a hashtable. Takes an optional function to format keys"
+    (let ((hashtable (make-hash-table :test 'equal)))
+      (dolist (element table)
+	(let* ((key (if keyfunction (funcall keyfunction (nth 0 element)) (nth 0 element)))
+	       (value (nth 1 element)))
+	  (sum-puthash key value hashtable)))
+      hashtable)
+    )
+
+  (defun average-of-hash-table (table)
+    "Average per day of table "
+    (average-of-hashtable-values (org-table-to-hashtable table 'date-from-timestamp))
+    )
+
+  (defun by-day-table (table)
+    "Create a table where the first column is a day and second column is the sum for that day"
+    (hash-table-to-list (org-table-to-hashtable table 'date-from-timestamp))
+    )
+
+#+end_src
+
+#+NAME: org-table-functions-wrapper
+#+begin_src emacs-lisp :noweb yes
+<<org-table-functions>>
+#+end_src
+
+
+
+* Allow this file to be found 
+#+begin_src emacs-lisp :tangle yes
+(provide 'org-table-custom-functions)
+#+end_src
