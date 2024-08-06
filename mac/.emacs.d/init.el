@@ -177,6 +177,14 @@
   :bind ("C-c S" . #'codespaces-connect)
   )
 
+(use-package lsp-mode
+    :hook (typescript-mode . lsp-deferred)
+    :commands (lsp lsp-deferred))
+
+(use-package org
+  :mode ("\\.org\\'" . org-mode)
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
+
 (use-package cus-edit
   :custom
   (custom-file null-device "Don't store customizations"))
