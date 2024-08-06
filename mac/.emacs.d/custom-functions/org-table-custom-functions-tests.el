@@ -1,5 +1,6 @@
-(ert-deftest list-average-test ()
+(ert-deftest org-list-average-test ()
   "test list-average function"
+  :tags :org
   (let ((test-cases '(((2 1) . 1)
 		((9 8 7 9) . 8)
 		((110 1000 900 3000 30) . 1008)
@@ -11,8 +12,9 @@
 
  ))
 
-(ert-deftest hash-table-to-list ()
+(ert-deftest org-hash-table-to-list ()      
   "test hash-table-to-list"
+  :tags :org
 (let ((table-1 (make-hash-table :test 'equal))
        (table-2 (make-hash-table :test 'equal))
        (table-3 (make-hash-table :test 'equal))
@@ -49,8 +51,9 @@
   )
  )
 
-(ert-deftest average-of-hashtable-values ()
-  "test average-of-hashtable-values"
+(ert-deftest org-average-of-hash-table-values ()
+  "test average-of-hash-table-values"
+  :tags :org
   (let ((table-holder (make-hash-table :test 'equal))
        (table-1 (make-hash-table :test 'equal))
        (table-2 (make-hash-table :test 'equal))
@@ -86,14 +89,15 @@
     (puthash average-4 table-4 table-holder)
 
     (maphash (lambda (k v)
-	       (should (= (average-of-hashtable-values v) k))
+	       (should (= (average-of-hash-table-values v) k))
 	       ) table-holder)
 
     )
   )
 
-(ert-deftest date-from-timestamp ()
+(ert-deftest org-date-from-timestamp-test ()
  "test date-from-timestamp"
+ :tags :org
  (let ((test-cases '(("<2024-05-19 Sun>" . "05-19-2024")
 	       ("<2024-06-28 Sun>" . "06-28-2024")
 	       ("<2024-06-25 Tue 16:24>" . "06-25-2024")
@@ -108,6 +112,7 @@
 
 (ert-deftest sum-puthash ()
   "test sum-puthash"
+  :tags :org
 (let ((table-1 (make-hash-table :test 'equal))
        (table-2 (make-hash-table :test 'equal))
        (table-3 (make-hash-table :test 'equal))
@@ -168,5 +173,54 @@
 
   )
  )
+
+(ert-deftest org-hash-table-equal ()
+:tags :org
+    (let* (
+	 (test-hash-table1 (make-hash-table :test 'equal))
+	 (test-hash-table2 (make-hash-table :test 'equal))
+	 (test-hash-table3 (make-hash-table :test 'equal))
+	 (test-hash-table4 (make-hash-table :test 'equal))
+	 (same-hash-tables (list test-hash-table1 test-hash-table2))
+	 (test-hash-table-variables1 (list (cons "name" "test-name")
+				  (cons "displayName" "test-displayName")
+				  (cons "state" "AVAILABLE")
+				  (cons "repository" "test/test-repository")
+				  ))
+	 (test-hash-table-variables2 (list (cons "name" "test-name")
+				  (cons "displayName" "test-displayName")
+				  (cons "state" "AVAILABLE")
+				  ))
+	 (test-hash-table-variables3 (list (cons "name" "test-name")
+				  (cons "displayName" "test-displayName")
+				  (cons "state" "AVAILABLE")
+				  (cons "not" "the-same")
+				  ))
+	 (test-cases(list (cons (cons test-hash-table1 test-hash-table2) t)
+					  (cons (cons test-hash-table1 test-hash-table3) nil)
+					  (cons (cons test-hash-table2 test-hash-table4) nil)
+				  ))
+	 )
+
+
+  (cl-flet (
+	    (map-alist-hash-table (alist hash-table)
+	      (mapcar (lambda (pair) (puthash (car pair) (cdr pair) hash-table))
+		       alist)
+	      )
+	    )
+    (mapcar (lambda (hash-table) (map-alist-hash-table test-hash-table-variables1 hash-table)) same-hash-tables)
+    (mapcar (lambda (pair) (puthash (car pair) (cdr pair) test-hash-table3))
+	    test-hash-table-variables2)
+    (mapcar (lambda (pair) (puthash (car pair) (cdr pair) test-hash-table4))
+	    test-hash-table-variables3)
+    (mapcar (lambda (test-case)
+	      (should (equal (hash-table-equal (car (car test-case)) (cdr (car test-case))) (cdr test-case)))
+	      )
+	    test-cases)
+    )
+
+)
+    )
 
 (provide 'org-table-custom-functions-tests)

@@ -164,15 +164,6 @@
 	   )	     
  )
 
-(use-package tramp
-  :custom (add-to-list 'tramp-remote-path 'tramp-own-path)
-	  (add-to-list 'tramp-connection-properties
-	   (list (regexp-quote "/ghcs")
-		 "remote-shell" "/usr/bin/zsh"))
-	  (customize-set-variable 'tramp-encoding-shell "/usr/bin/zsh")
-
-  )
-
 (use-package magit
   :ensure t
   :bind (("C-c C-g" . magit-status)

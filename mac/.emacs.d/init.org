@@ -246,17 +246,6 @@
    )
 #+end_src
 
-* customize tramp
-#+begin_src emacs-lisp :tangle yes
-  (use-package tramp
-    :custom (add-to-list 'tramp-remote-path 'tramp-own-path)
-	    (add-to-list 'tramp-connection-properties
-	     (list (regexp-quote "/ghcs")
-		   "remote-shell" "/usr/bin/zsh"))
-	    (customize-set-variable 'tramp-encoding-shell "/usr/bin/zsh")
-
-    )
-#+end_src
 * setup magit
 #+begin_src emacs-lisp :tangle yes
 (use-package magit

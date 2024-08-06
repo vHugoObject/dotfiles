@@ -17,3 +17,7 @@ HISTORY_IGNORE="(l|l *|ls|ls *|cd|cd ..*|cd -|z *|pwd|exit|caf|cddot)"
 [[ -e "${HOME}/.zsh_prompt" ]] && source "${HOME}/.zsh_prompt"
 
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

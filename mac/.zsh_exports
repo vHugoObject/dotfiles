@@ -14,7 +14,6 @@ export FPATH="/usr/share/zsh/5.8/functions:${FPATH}"
 export FPATH="${HOME}/.zsh/completion:${FPATH}"
 export FPATH="${HOME}/zfunc:${FPATH}"
 
-
 export ALTERNATE_EDITOR="" 	       		  # Blank in order to force emacs to run even if daemon hasn't started
 export EDITOR="/opt/homebrew/bin/emacsclient -t"                  # $EDITOR opens in terminal
 export VISUAL="/opt/homebrew/bin/emacsclient -t -a emacs"         # $VISUAL opens in GUI mode
