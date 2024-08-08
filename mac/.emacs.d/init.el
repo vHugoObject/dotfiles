@@ -119,7 +119,11 @@
  )
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "emacs-lisp"))) ;don't ask for emacs-lisp
+  (let ((langs (list "elisp" "emacs-lisp")))
+    (not (member lang langs))      
+    )
+  )
+
 (use-package ob-core
 :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
  )
