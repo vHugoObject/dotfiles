@@ -69,7 +69,10 @@
        )
 #+end_src
 
-
+* add init files to path
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'load-path "~/.emacs.d/init-files")
+#+end_src
 * language specific modes
 ** rust mode
 #+begin_src emacs-lisp :tangle yes
@@ -190,29 +193,25 @@
 
 ** customize org-babel
 #+begin_src emacs-lisp :tangle yes
+      (defun my-org-confirm-babel-evaluate (lang body)
+	"Custom function for org-confirm babel. Contains of
+	 a set of functions that don't need confirmation
+         for evaluation"
+	(let ((langs (list "elisp" "emacs-lisp")))
+	  (not (member lang langs))      
+	  )
+	)
 
-  (defun my-org-confirm-babel-evaluate (lang body)
-    (let ((langs (list "elisp" "emacs-lisp")))
-      (not (member lang langs))      
-      )
-    )
-
-  (use-package ob-core
-  :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
-   )
+      (use-package ob-core
+      :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+       )
 #+end_src
 
 ** customize org-capture
 #+begin_src emacs-lisp :tangle yes
+  (use-package org-capture-templates)  
   (use-package org-capture
-    :custom (org-capture-templates
-	     '(("c" "Les calories" table-line (file+headline "~/org/la-nourriture.org" "Les calories")
-		"|%T|%^{PROMPT|500}|")
-	       ("s" "La sucre" table-line (file+headline "~/org/la-nourriture.org" "La sucre")
-		"|%T|%^{PROMPT}|")
-	       ("a" "Les dépenses" table-line (file+headline "~/org/les-sous.org" "Les dépenses")
-		  "|%T|%^{PROMPT}|")
-	       ))
+    :custom org-capture-templates
     )
 #+end_src   
 ** setup org-pomodoro
@@ -287,11 +286,7 @@
   :custom
   (custom-file null-device "Don't store customizations"))			 
 #+end_src
-* add custom functions to path
-#+begin_src emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/custom-functions")
-#+end_src
-** load custom functions for org-tables
+* load custom functions for org-tables
 #+begin_src emacs-lisp :tangle yes
   (use-package org-table-custom-functions)
   (use-package org-table-custom-functions-tests)

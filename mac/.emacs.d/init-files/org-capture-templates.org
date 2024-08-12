@@ -1,0 +1,19 @@
+#+auto_tangle: t
+
+* Templates
+#+begin_src emacs-lisp :tangle yes
+(setq org-capture-templates
+	     '(("c" "Les calories" table-line (file+headline "~/org/la-nourriture.org" "Les calories")
+		"|%T|%^{PROMPT|500}|")
+	       ("s" "La sucre" table-line (file+headline "~/org/la-nourriture.org" "La sucre")
+		"|%T|%^{PROMPT}|")
+	       ("a" "Les dépenses" table-line (file+headline "~/org/les-sous.org" "Les dépenses")
+		  "|%T|%^{PROMPT}|")
+	       ))
+#+end_src   
+
+
+* Allow this file to be found 
+#+begin_src emacs-lisp :tangle yes
+(provide 'org-capture-templates)
+#+end_src

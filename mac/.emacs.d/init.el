@@ -41,6 +41,8 @@
   :hook (org-mode . org-auto-tangle-mode)
      )
 
+(add-to-list 'load-path "~/.emacs.d/init-files")
+
 ;; only load rust-mode when needed
 (use-package rust-mode
   :mode "\\.rs\\'"
@@ -119,6 +121,9 @@
  )
 
 (defun my-org-confirm-babel-evaluate (lang body)
+  "Custom function for org-confirm babel. Contains of
+   a set of functions that don't need confirmation
+   for evaluation"
   (let ((langs (list "elisp" "emacs-lisp")))
     (not (member lang langs))      
     )
@@ -128,15 +133,9 @@
 :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
  )
 
+(use-package org-capture-templates)  
 (use-package org-capture
-  :custom (org-capture-templates
-	   '(("c" "Les calories" table-line (file+headline "~/org/la-nourriture.org" "Les calories")
-	      "|%T|%^{PROMPT|500}|")
-	     ("s" "La sucre" table-line (file+headline "~/org/la-nourriture.org" "La sucre")
-	      "|%T|%^{PROMPT}|")
-	     ("a" "Les dépenses" table-line (file+headline "~/org/les-sous.org" "Les dépenses")
-		"|%T|%^{PROMPT}|")
-	     ))
+  :custom org-capture-templates
   )
 
 ;; org-pomodoro
@@ -192,8 +191,6 @@
 (use-package cus-edit
   :custom
   (custom-file null-device "Don't store customizations"))
-
-(add-to-list 'load-path "~/.emacs.d/custom-functions")
 
 (use-package org-table-custom-functions)
 (use-package org-table-custom-functions-tests)
