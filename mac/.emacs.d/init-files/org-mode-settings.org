@@ -8,10 +8,8 @@
     :hook ((org-trigger . save-buffer)
 	   (org-mode . flyspell-mode)
 	   )
-    ;; for verb
-    :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
-    :custom
-    (org-todo-keywords
+    ;; for verb    
+    :custom (org-todo-keywords
      '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))
     (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
     (org-log-into-drawer "LOGBOOK" "log into LOGBOOK drawer")

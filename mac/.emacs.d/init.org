@@ -178,9 +178,10 @@
 #+end_src
 ** setup verb
 #+begin_src elisp
-    (use-package verb
+  (use-package verb
     :straight (verb :type git :host github :repo "federicotdn/verb"
-			:fork t)
-    )
+		      :fork t)
+    :bind-keymap ("C-c C-r" . verb-command-map)
+  )
 #+end_src
 
