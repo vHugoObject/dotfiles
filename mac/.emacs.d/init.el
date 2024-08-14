@@ -46,22 +46,6 @@
 	   )	     
  )
 
-(eval-when-compile
-    (require 'use-package))
-(use-package use-package-ensure-system-package :ensure t)
-
-(use-package package
-  :custom
-  (package-enable-at-startup nil)
-	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
-                         ("gnu"       . "http://elpa.gnu.org/packages/")
-                         ("melpa"     . "https://melpa.org/packages/")))  				     )
-
-(use-package org-auto-tangle
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode)
-     )
-
 (add-to-list 'load-path "~/.emacs.d/init-files")
 
 (use-package org-mode-settings)
@@ -109,15 +93,8 @@
 	   )
   )
 
-(use-package magit
-  :ensure t
+(use-package magit  
   :bind (("C-c C-g" . magit-status)
         ("C-c p" . magit-push-to-remote)
 	 )
  )
-
-(use-package codespaces
-  :ensure-system-package gh
-  :config (codespaces-setup)
-  :bind ("C-c S" . #'codespaces-connect)
-  )

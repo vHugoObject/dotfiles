@@ -15,6 +15,11 @@
   (org-startup-folded 'show2levels)
   )
 
+(use-package org-auto-tangle
+  :defer t
+  :hook (org-mode . org-auto-tangle-mode)
+     )
+
 (use-package org-table
 :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
  )
@@ -54,12 +59,11 @@
 
 (use-package org-capture-templates)  
 (use-package org-capture
-  :custom org-capture-templates
+  :custom (org-capture-templates)
   )
 
 ;; org-pomodoro
 (use-package org-pomodoro
-  :ensure t
   :commands (org-pomodoro)
   :bind ("M-C-o" . org-pomodoro)
   ;; autosave on pomodorro finish
@@ -74,3 +78,5 @@
    (org-pomodoro-long-break-length 15)
    (org-pomodoro-manual-break t)
    )
+
+(provide 'org-mode-settings)

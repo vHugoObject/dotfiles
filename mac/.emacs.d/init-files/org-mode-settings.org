@@ -20,6 +20,13 @@
     (org-startup-folded 'show2levels)
     )
 #+end_src
+** setup autotangle mode
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-auto-tangle
+    :defer t
+    :hook (org-mode . org-auto-tangle-mode)
+       )
+#+end_src
 
 ** customize org-table
 #+begin_src emacs-lisp :tangle yes
@@ -80,14 +87,13 @@
 #+begin_src emacs-lisp :tangle yes
   (use-package org-capture-templates)  
   (use-package org-capture
-    :custom org-capture-templates
+    :custom (org-capture-templates)
     )
 #+end_src   
 ** setup org-pomodoro
 #+begin_src emacs-lisp :tangle yes
 ;; org-pomodoro
 (use-package org-pomodoro
-  :ensure t
   :commands (org-pomodoro)
   :bind ("M-C-o" . org-pomodoro)
   ;; autosave on pomodorro finish
@@ -103,4 +109,8 @@
    (org-pomodoro-manual-break t)
    )
 #+end_src   
+* Allow this file to be found 
+#+begin_src emacs-lisp :tangle yes
+(provide 'org-mode-settings)
+#+end_src
 

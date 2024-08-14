@@ -72,39 +72,15 @@
 
 
 
-* package settings
-** setup use-package
-#+begin_src emacs-lisp :tangle yes
-  (eval-when-compile
-    (require 'use-package))
-(use-package use-package-ensure-system-package :ensure t)
-#+end_src
-
-** setup package sources
-#+begin_src emacs-lisp :tangle yes
-(use-package package
-  :custom
-  (package-enable-at-startup nil)
-	  (package-archives '(("org"       . "http://orgmode.org/elpa/")
-                         ("gnu"       . "http://elpa.gnu.org/packages/")
-                         ("melpa"     . "https://melpa.org/packages/")))  				     )
-
-#+end_src
-
-** setup autotangle mode
-#+begin_src emacs-lisp :tangle yes
-  (use-package org-auto-tangle
-    :defer t
-    :hook (org-mode . org-auto-tangle-mode)
-       )
-#+end_src
-
+* load init files
 ** add init files to path
 #+begin_src emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/init-files")
 #+end_src
-
-* Load init files
+** load package-management
+#+begin_src elisp
+  (use-package package-management)
+#+end_src
 ** load org-mode settings
 #+begin_src emacs-lisp :tangle yes
   (use-package org-mode-settings)
@@ -168,7 +144,7 @@
 #+end_src
 
 
-* miscellaneous 
+* miscellaneous packages
 ** spray-mode for reading
 #+begin_src emacs-lisp :tangle yes
 (use-package spray
@@ -183,20 +159,28 @@
 
 ** setup magit
 #+begin_src emacs-lisp :tangle yes
-(use-package magit
-  :ensure t
+(use-package magit  
   :bind (("C-c C-g" . magit-status)
         ("C-c p" . magit-push-to-remote)
 	 )
  )
 #+end_src
-
 ** setup codespaces.el
-#+begin_src emacs-lisp :tangle yes
+#+begin_src elisp
   (use-package codespaces
     :ensure-system-package gh
     :config (codespaces-setup)
     :bind ("C-c S" . #'codespaces-connect)
+    :straight (codespaces :type git :host github :repo "patrickt/codespaces.el"
+                      :fork t)
     )
 
 #+end_src
+** setup verb
+#+begin_src elisp
+    (use-package verb
+    :straight (verb :type git :host github :repo "federicotdn/verb"
+			:fork t)
+    )
+#+end_src
+
