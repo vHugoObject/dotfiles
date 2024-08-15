@@ -3,8 +3,8 @@
 * org mode setting
 ** setup org mode with use package
 #+begin_src emacs-lisp :tangle yes
-  ;; autosave on TODO state change
   (use-package org
+    :straight nil
     :hook ((org-trigger . save-buffer)
 	   (org-mode . flyspell-mode)
 	   )
@@ -21,44 +21,48 @@
 ** setup autotangle mode
 #+begin_src emacs-lisp :tangle yes
   (use-package org-auto-tangle
-    :defer t
     :hook (org-mode . org-auto-tangle-mode)
-       )
+    )
 #+end_src
 
 ** customize org-table
 #+begin_src emacs-lisp :tangle yes
   (use-package org-table
-  :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
+    :straight nil
+    :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
    )
 #+end_src
 
 ** customize org-attach
 #+begin_src emacs-lisp :tangle yes
-(use-package org-attach
-:custom (org-attach-method 'l "set symbolic link as a default attachment method")
- )
+  (use-package org-attach
+    :straight nil
+    :custom (org-attach-method 'l "set symbolic link as a default attachment method")
+   )
 #+end_src
 
 ** customize org-clock
 #+begin_src emacs-lisp :tangle yes
   (use-package org-clock
-  :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
+    :straight nil
+    :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
 	  (org-clock-persist t "save the running clock when emacs is closed")
    )
 #+end_src
 
 ** customize org-duration
 #+begin_src emacs-lisp :tangle yes
-(use-package org-duration
-:custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
- )
+  (use-package org-duration
+    :straight nil
+    :custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
+   )
 #+end_src
 
 ** customize org-habit
 #+begin_src emacs-lisp :tangle yes
   (use-package org-habit
-  :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
+    :straight nil
+    :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
 	  (org-habit-preceding-days )
 	  (org-habit-)
 	  (org-habit-graph-column)
@@ -67,30 +71,33 @@
 
 ** customize org-babel
 #+begin_src emacs-lisp :tangle yes
-      (defun my-org-confirm-babel-evaluate (lang body)
-	"Custom function for org-confirm babel. Contains of
-	 a set of functions that don't need confirmation
-         for evaluation"
-	(let ((langs (list "elisp" "emacs-lisp")))
-	  (not (member lang langs))      
-	  )
-	)
+  (defun my-org-confirm-babel-evaluate (lang body)
+    "Custom function for org-confirm babel. Contains of
+     a set of functions that don't need confirmation
+     for evaluation"
+    (let ((langs (list "elisp" "emacs-lisp")))
+      (not (member lang langs))      
+      )
+    )
 
-      (use-package ob-core
-      :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
-       )
+  (use-package ob-core
+    :straight nil
+    :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+   )
 #+end_src
 
 ** customize org-capture
 #+begin_src emacs-lisp :tangle yes
-  (use-package org-capture-templates)  
+  (use-package org-capture-templates
+    :straight nil)
+
   (use-package org-capture
+    :straight nil
     :custom (org-capture-templates)
     )
 #+end_src   
 ** setup org-pomodoro
 #+begin_src emacs-lisp :tangle yes
-;; org-pomodoro
 (use-package org-pomodoro
   :commands (org-pomodoro)
   :bind ("M-C-o" . org-pomodoro)
@@ -107,8 +114,4 @@
    (org-pomodoro-manual-break t)
    )
 #+end_src   
-* Allow this file to be found 
-#+begin_src emacs-lisp :tangle yes
-(provide 'org-mode-settings)
-#+end_src
 

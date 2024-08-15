@@ -1,5 +1,5 @@
-;; autosave on TODO state change
 (use-package org
+  :straight nil
   :hook ((org-trigger . save-buffer)
 	 (org-mode . flyspell-mode)
 	 )
@@ -14,29 +14,33 @@
   )
 
 (use-package org-auto-tangle
-  :defer t
   :hook (org-mode . org-auto-tangle-mode)
-     )
+  )
 
 (use-package org-table
-:custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
+  :straight nil
+  :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
  )
 
 (use-package org-attach
-:custom (org-attach-method 'l "set symbolic link as a default attachment method")
+  :straight nil
+  :custom (org-attach-method 'l "set symbolic link as a default attachment method")
  )
 
 (use-package org-clock
-:custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
+  :straight nil
+  :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
 	(org-clock-persist t "save the running clock when emacs is closed")
  )
 
 (use-package org-duration
-:custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
+  :straight nil
+  :custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
  )
 
 (use-package org-habit
-:custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
+  :straight nil
+  :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
 	(org-habit-preceding-days )
 	(org-habit-)
 	(org-habit-graph-column)
@@ -52,15 +56,18 @@
   )
 
 (use-package ob-core
-:custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+  :straight nil
+  :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
  )
 
-(use-package org-capture-templates)  
+(use-package org-capture-templates
+  :straight nil)
+
 (use-package org-capture
+  :straight nil
   :custom (org-capture-templates)
   )
 
-;; org-pomodoro
 (use-package org-pomodoro
   :commands (org-pomodoro)
   :bind ("M-C-o" . org-pomodoro)
@@ -76,5 +83,3 @@
    (org-pomodoro-long-break-length 15)
    (org-pomodoro-manual-break t)
    )
-
-(provide 'org-mode-settings)

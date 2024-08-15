@@ -2,15 +2,16 @@
 
 * setup straight.el
 ** straight custom variables
-#+begin_src elisp
+#+begin_src elisp :tangle yes
   (setopt straight-fix-flycheck t)
   (setopt straight-use-package-by-default t)
   (setopt straight-repository-branch "master")
-  (setopt straight-host-usernames  \\='((github . \"vHugoObject\")))
+  (setopt straight-host-usernames '((github . "vHugoObject")))
   (setopt straight-default-vc 'git)  
 #+end_src
+
 ** load straight.el
-#+begin_src elisp
+#+begin_src elisp :tangle yes
   (defvar bootstrap-version)
   (let ((bootstrap-file
 	   (expand-file-name
@@ -28,21 +29,16 @@
       (load bootstrap-file nil 'nomessage))
 
 #+end_src
-
   
 * setup use-package
 ** install use-package using straight.el
-#+begin_src elisp
+#+begin_src elisp :tangle yes
   (straight-use-package 'use-package)
 #+end_src
-** install use-package-ensure-system-package
-#+begin_src elisp
-(use-package use-package-ensure-system-package)  
-#+end_src
 
-* Allow this file to be found 
-#+begin_src emacs-lisp :tangle yes
-(provide 'package-management)
+** install use-package-ensure-system-package
+#+begin_src elisp :tangle yes
+(use-package use-package-ensure-system-package)  
 #+end_src
 
 

@@ -1,3 +1,7 @@
+(add-to-list 'load-path "~/.emacs.d/init-files")
+
+(load "~/.emacs.d/init-files/package-management.el")
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -26,16 +30,19 @@
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 (use-package cus-edit
+  :straight nil
   :custom
   (custom-file null-device "Don't store customizations"))
 
 (use-package frame
+  :straight nil
   :custom
   (initial-frame-alist
        '((top . 1) (left . 1) (width . 200) (height . 60)))
  )
 
 (use-package dired
+  :straight nil
   :hook (dired-mode . (lambda ()
 	    (define-key dired-mode-map
 	      (kbd "C-c C-x a")
@@ -46,12 +53,10 @@
 	   )	     
  )
 
-(add-to-list 'load-path "~/.emacs.d/init-files")
+(load "~/.emacs.d/init-files/org-mode-settings.el")
 
-(use-package org-mode-settings)
-
-(use-package org-table-custom-functions)
-(use-package org-table-custom-functions-tests)
+(require 'org-table-custom-functions)
+(require 'org-table-custom-functions-tests)
 
 (use-package lsp-mode
     :hook ((typescript-mode . lsp-deferred)
@@ -61,13 +66,8 @@
     :custom (lsp-enable-snippet nil)
     )
 
-;; only load rust-mode when needed
 (use-package rust-mode
   :mode "\\.rs\\'"
-)
-
-(use-package js-mode
-  :mode ( "\\.js\\'" "\\.mjs\\'")
 )
 
 (use-package web-mode
@@ -85,6 +85,7 @@
 )
 
 (use-package spray
+
   :bind ("C-<f6>" . spray-mode)
   :mode ("\\.epub\\'" "\\.txt\\'")
   :custom ((spray-margin-left 80)
@@ -93,8 +94,22 @@
 	   )
   )
 
-(use-package magit  
+(use-package magit
   :bind (("C-c C-g" . magit-status)
-        ("C-c p" . magit-push-to-remote)
+	("C-c p" . magit-push-to-remote)
 	 )
  )
+
+(use-package codespaces
+  :ensure-system-package gh
+  :config (codespaces-setup)
+  :bind ("C-c S" . #'codespaces-connect)
+  :straight (codespaces.el :type git :host github :repo "patrickt/codespaces.el"
+                    :fork t)
+  )
+
+(use-package verb
+  :straight (verb :type git :host github :repo "federicotdn/verb"
+		    :fork t )
+  :bind-keymap ("C-c C-r" . verb-command-map)
+)

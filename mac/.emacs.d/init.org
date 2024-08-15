@@ -1,5 +1,17 @@
 #+auto_tangle: t
 
+
+** add init files to path
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'load-path "~/.emacs.d/init-files")
+#+end_src
+
+** load package-management
+#+begin_src elisp :tangle yes
+  (load "~/.emacs.d/init-files/package-management.el")
+#+end_src
+
+
 * emacs housekeeping
 #+begin_src emacs-lisp :tangle yes
   (menu-bar-mode -1)
@@ -42,23 +54,26 @@
 
 ** prevent custom edit from adding settings to init.el
 #+begin_src emacs-lisp :tangle yes
-(use-package cus-edit
-  :custom
-  (custom-file null-device "Don't store customizations"))			 
+  (use-package cus-edit
+    :straight nil
+    :custom
+    (custom-file null-device "Don't store customizations"))			 
 #+end_src
 
 ** initial frame size
 #+begin_src emacs-lisp :tangle yes
-(use-package frame
-  :custom
-  (initial-frame-alist
-       '((top . 1) (left . 1) (width . 200) (height . 60)))
- )
+  (use-package frame
+    :straight nil
+    :custom
+    (initial-frame-alist
+	 '((top . 1) (left . 1) (width . 200) (height . 60)))
+   )
 #+end_src
 
 ** customize dired
 #+begin_src emacs-lisp :tangle yes
   (use-package dired
+    :straight nil
     :hook (dired-mode . (lambda ()
 	      (define-key dired-mode-map
 		(kbd "C-c C-x a")
@@ -71,24 +86,17 @@
 #+end_src
 
 
-
 * load init files
-** add init files to path
-#+begin_src emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/init-files")
-#+end_src
-** load package-management
-#+begin_src elisp
-  (use-package package-management)
-#+end_src
+
 ** load org-mode settings
 #+begin_src emacs-lisp :tangle yes
-  (use-package org-mode-settings)
+  (load "~/.emacs.d/init-files/org-mode-settings.el")
 #+end_src
+
 ** load custom functions for org-tables
 #+begin_src emacs-lisp :tangle yes
-  (use-package org-table-custom-functions)
-  (use-package org-table-custom-functions-tests)
+  (require 'org-table-custom-functions)
+  (require 'org-table-custom-functions-tests)
 #+end_src
 
 
@@ -107,16 +115,8 @@
 
 ** rust mode
 #+begin_src emacs-lisp :tangle yes
-;; only load rust-mode when needed
 (use-package rust-mode
   :mode "\\.rs\\'"
-)
-#+end_src
-
-** javascript mode
-#+begin_src emacs-lisp :tangle yes
-(use-package js-mode
-  :mode ( "\\.js\\'" "\\.mjs\\'")
 )
 #+end_src
 
@@ -147,40 +147,43 @@
 * miscellaneous packages
 ** spray-mode for reading
 #+begin_src emacs-lisp :tangle yes
-(use-package spray
-  :bind ("C-<f6>" . spray-mode)
-  :mode ("\\.epub\\'" "\\.txt\\'")
-  :custom ((spray-margin-left 80)
-	   (spray-margin-top 5)
-	   (set-frame-font "Iosevka Extended 12" nil t)
-	   )
-  )
+  (use-package spray
+    
+    :bind ("C-<f6>" . spray-mode)
+    :mode ("\\.epub\\'" "\\.txt\\'")
+    :custom ((spray-margin-left 80)
+	     (spray-margin-top 5)
+	     (set-frame-font "Iosevka Extended 12" nil t)
+	     )
+    )
 #+end_src
-
 ** setup magit
 #+begin_src emacs-lisp :tangle yes
-(use-package magit  
-  :bind (("C-c C-g" . magit-status)
-        ("C-c p" . magit-push-to-remote)
-	 )
- )
+  (use-package magit
+    :bind (("C-c C-g" . magit-status)
+	  ("C-c p" . magit-push-to-remote)
+	   )
+   )
 #+end_src
 ** setup codespaces.el
-#+begin_src elisp
+#+begin_src elisp :tangle yes
   (use-package codespaces
     :ensure-system-package gh
     :config (codespaces-setup)
     :bind ("C-c S" . #'codespaces-connect)
-    :straight (codespaces :type git :host github :repo "patrickt/codespaces.el"
+    :straight (codespaces.el :type git :host github :repo "patrickt/codespaces.el"
                       :fork t)
     )
 
 #+end_src
+
+#+RESULTS:
+
 ** setup verb
-#+begin_src elisp
+#+begin_src elisp :tangle yes
   (use-package verb
     :straight (verb :type git :host github :repo "federicotdn/verb"
-		      :fork t)
+		      :fork t )
     :bind-keymap ("C-c C-r" . verb-command-map)
   )
 #+end_src
