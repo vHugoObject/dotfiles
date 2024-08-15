@@ -47,14 +47,13 @@
  )
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  "Custom function for org-confirm babel. Contains of
+  "Custom function for org-confirm-babel. Contains of
    a set of functions that don't need confirmation
    for evaluation"
-  (let ((langs (list "elisp" "emacs-lisp")))
+  (let ((langs (list "elisp" "emacs-lisp" "zsh" "sh" "shell")))
     (not (member lang langs))      
     )
   )
-
 (use-package ob-core
   :straight nil
   :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
