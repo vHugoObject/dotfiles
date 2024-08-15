@@ -1,6 +1,6 @@
 (add-to-list 'load-path "~/.emacs.d/init-files")
 
-(load "~/.emacs.d/init-files/package-management.el")
+(load "~/.emacs.d/init-files/package-management")
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -52,11 +52,6 @@
 	   (dired-create-destination-dirs 'ask)
 	   )	     
  )
-
-(load "~/.emacs.d/init-files/org-mode-settings.el")
-
-(require 'org-table-custom-functions)
-(require 'org-table-custom-functions-tests)
 
 (use-package lsp-mode
     :hook ((typescript-mode . lsp-deferred)
@@ -110,6 +105,10 @@
 
 (use-package verb
   :straight (verb :type git :host github :repo "federicotdn/verb"
-		    :fork t )
-  :bind-keymap ("C-c C-r" . verb-command-map)
-)
+		    :fork t)
+  )
+
+(load "~/.emacs.d/init-files/org-mode-settings")
+
+(load "~/.emacs.d/init-files/org-table-custom-functions")
+(load "~/.emacs.d/init-files/org-table-custom-functions-tests")

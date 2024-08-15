@@ -1,6 +1,6 @@
 #+auto_tangle: t
 
-
+* startup package management
 ** add init files to path
 #+begin_src emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/init-files")
@@ -8,7 +8,7 @@
 
 ** load package-management
 #+begin_src elisp :tangle yes
-  (load "~/.emacs.d/init-files/package-management.el")
+  (load "~/.emacs.d/init-files/package-management")
 #+end_src
 
 
@@ -83,20 +83,6 @@
 	     (dired-create-destination-dirs 'ask)
 	     )	     
    )
-#+end_src
-
-
-* load init files
-
-** load org-mode settings
-#+begin_src emacs-lisp :tangle yes
-  (load "~/.emacs.d/init-files/org-mode-settings.el")
-#+end_src
-
-** load custom functions for org-tables
-#+begin_src emacs-lisp :tangle yes
-  (require 'org-table-custom-functions)
-  (require 'org-table-custom-functions-tests)
 #+end_src
 
 
@@ -183,8 +169,21 @@
 #+begin_src elisp :tangle yes
   (use-package verb
     :straight (verb :type git :host github :repo "federicotdn/verb"
-		      :fork t )
-    :bind-keymap ("C-c C-r" . verb-command-map)
-  )
+		      :fork t)
+    )
 #+end_src
+
+
+* load init files
+** load org-mode settings
+#+begin_src emacs-lisp :tangle yes
+  (load "~/.emacs.d/init-files/org-mode-settings")
+#+end_src
+
+** load custom functions for org-tables
+#+begin_src emacs-lisp :tangle yes
+  (load "~/.emacs.d/init-files/org-table-custom-functions")
+  (load "~/.emacs.d/init-files/org-table-custom-functions-tests")
+#+end_src
+
 

@@ -1,9 +1,11 @@
 (use-package org
   :straight nil
+  :mode ("\\.org\\'" . org-mode)
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
   :hook ((org-trigger . save-buffer)
 	 (org-mode . flyspell-mode)
+	 (org-mode . verb-mode)
 	 )
-  ;; for verb    
   :custom (org-todo-keywords
    '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))
   (org-treat-insert-todo-heading-as-state-change t "log TODO creation")
@@ -84,3 +86,5 @@
    (org-pomodoro-long-break-length 15)
    (org-pomodoro-manual-break t)
    )
+
+(provide 'org-table-custom-functions)
