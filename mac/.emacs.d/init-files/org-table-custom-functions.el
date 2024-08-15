@@ -63,5 +63,3 @@
   "Create a table where the first column is a day and second column is the sum for that day"
   (hash-table-to-list (org-table-to-hash-table table 'date-from-timestamp))
   )
-
-(provide 'org-table-custom-functions)

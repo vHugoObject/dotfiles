@@ -6,5 +6,3 @@
 	       ("a" "Les dépenses" table-line (file+headline "~/org/les-sous.org" "Les dépenses")
 		  "|%T|%^{PROMPT}|")
 	       ))
-
-(provide 'org-capture-templates)

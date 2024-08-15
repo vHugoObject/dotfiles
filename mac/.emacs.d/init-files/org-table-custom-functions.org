@@ -82,9 +82,3 @@
 <<org-table-functions>>
 #+end_src
 
-
-
-* Allow this file to be found 
-#+begin_src emacs-lisp :tangle yes
-(provide 'org-table-custom-functions)
-#+end_src

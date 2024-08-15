@@ -169,7 +169,8 @@
 #+begin_src elisp :tangle yes
   (use-package verb
     :straight (verb :type git :host github :repo "federicotdn/verb"
-		      :fork t)
+		    :fork t)
+    
     )
 #+end_src
 

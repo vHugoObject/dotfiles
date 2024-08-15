@@ -63,13 +63,11 @@
 	   )
  )
 
-(use-package org-capture-templates
-  :straight nil)
-
-(use-package org-capture
-  :straight nil
-  :custom (org-capture-templates)
-  )
+(load "~/.emacs.d/init-files/org-capture-templates")
+  (use-package org-capture
+    :straight nil
+    :custom (org-capture-templates org-capture-templates)
+    )
 
 (use-package org-pomodoro
   :commands (org-pomodoro)
@@ -86,5 +84,3 @@
    (org-pomodoro-long-break-length 15)
    (org-pomodoro-manual-break t)
    )
-
-(provide 'org-table-custom-functions)

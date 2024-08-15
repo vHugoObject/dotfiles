@@ -12,7 +12,3 @@
 	       ))
 #+end_src   
 
-* Allow this file to be found 
-#+begin_src emacs-lisp :tangle yes
-(provide 'org-capture-templates)
-#+end_src
