@@ -56,7 +56,9 @@
   )
 (use-package ob-core
   :straight nil
-  :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+  :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+	   (add-to-list 'org-babel-load-languages '((zsh . t)))
+	   )
  )
 
 (use-package org-capture-templates

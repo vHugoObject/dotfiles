@@ -1,1 +1,1 @@
-(setq package-enable-at-startup nil)
+(setopt package-enable-at-startup nil)

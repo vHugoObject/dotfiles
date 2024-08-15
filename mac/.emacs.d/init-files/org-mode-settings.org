@@ -81,8 +81,12 @@
     )
   (use-package ob-core
     :straight nil
-    :custom (org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+    :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
+	     (add-to-list 'org-babel-load-languages '((zsh . t)))
+	     )
    )
+
+
 #+end_src
 
 ** customize org-capture

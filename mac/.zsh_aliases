@@ -2,7 +2,7 @@
 
 # emacs stuff
 # start emacs in terminal
-alias emacs="emacsclient"
+aalias emacs="emacsclient"
 # start the emacs daemon so emacs can run in terminal
 alias emacsdaemon="emacs --daemon"
 # edit emacs init.el
