@@ -7,8 +7,7 @@
 (scroll-bar-mode -1)
 (show-paren-mode 1)
 (line-number-mode 1)
-(column-number-mode 1)
-
+(column-number-mode 1)  
 (setopt warning-minimum-level :emergency)
 (setopt inhibit-startup-message t)
 
@@ -30,19 +29,19 @@
 (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 (use-package cus-edit
-  :straight nil
+  :straight (:type built-in)
   :custom
   (custom-file null-device "Don't store customizations"))
 
 (use-package frame
-  :straight nil
+  :straight (:type built-in)
   :custom
   (initial-frame-alist
        '((top . 1) (left . 1) (width . 200) (height . 60)))
  )
 
 (use-package dired
-  :straight nil
+  :straight (:type built-in)
   :hook (dired-mode . (lambda ()
 	    (define-key dired-mode-map
 	      (kbd "C-c C-x a")
@@ -53,31 +52,7 @@
 	   )	     
  )
 
-(use-package lsp-mode
-    :hook ((typescript-mode . lsp-deferred)
-	   (rust-mode . lsp-deferred)
-	   )
-    :commands (lsp lsp-deferred)
-    :custom (lsp-enable-snippet nil)
-    )
-
-(use-package rust-mode
-  :mode "\\.rs\\'"
-)
-
-(use-package web-mode
-
-  :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
-  :custom (web-mode-enable current-element-highlight t)
-)
-
-(use-package typescript-mode
-:mode "\\.ts\\'")
-
-(use-package flycheck
-:hook (typescript-mode js-mode web-mode-enable)
-:custom (flycheck-add-mode 'javascript-eslint 'web-mode)
-)
+(load "~/.emacs.d/init-files/language-modes")
 
 (use-package spray
 
@@ -105,7 +80,8 @@
 
 (use-package verb
   :straight (verb :type git :host github :repo "federicotdn/verb"
-		    :fork t)
+		  :fork t)
+
   )
 
 (load "~/.emacs.d/init-files/org-mode-settings")

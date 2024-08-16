@@ -20,28 +20,28 @@
   )
 
 (use-package org-table
-  :straight nil
+  :straight (:type built-in)
   :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
  )
 
 (use-package org-attach
-  :straight nil
+  :straight (:type built-in)
   :custom (org-attach-method 'l "set symbolic link as a default attachment method")
  )
 
 (use-package org-clock
-  :straight nil
+  :straight (:type built-in)
   :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
 	(org-clock-persist t "save the running clock when emacs is closed")
  )
 
 (use-package org-duration
-  :straight nil
+  :straight (:type built-in)
   :custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
  )
 
 (use-package org-habit
-  :straight nil
+  :straight (:type built-in)
   :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
 	(org-habit-preceding-days )
 	(org-habit-)
@@ -57,7 +57,7 @@
     )
   )
 (use-package ob-core
-  :straight nil
+  :straight (:type built-in)
   :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
 	   (add-to-list 'org-babel-load-languages '((zsh . t)))
 	   )
@@ -65,7 +65,7 @@
 
 (load "~/.emacs.d/init-files/org-capture-templates")
   (use-package org-capture
-    :straight nil
+    :straight (:type built-in)
     :custom (org-capture-templates org-capture-templates)
     )
 
