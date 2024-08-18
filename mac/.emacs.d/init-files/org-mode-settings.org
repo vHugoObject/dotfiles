@@ -66,9 +66,6 @@
   (use-package org-habit
     :straight (:type built-in)
     :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
-	  (org-habit-preceding-days )
-	  (org-habit-)
-	  (org-habit-graph-column)
    )
 #+end_src
 
@@ -100,8 +97,6 @@
     :custom (org-capture-templates org-capture-templates)
     )
 #+end_src   
-
-#+RESULTS:
 
 ** setup org-pomodoro
 #+begin_src emacs-lisp :tangle yes

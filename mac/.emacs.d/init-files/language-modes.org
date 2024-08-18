@@ -58,7 +58,7 @@
 	      ("C-c f" . flymake-show-buffer-diagnostics)
 	      ("C-c r" . eglot-rename))
     :config (add-to-list 'eglot-server-programs
-			 (((js-mode :language-id javascript)
+			 '(((js-mode :language-id javascript)
 					  (js-ts-mode :language-id javascript)
 					  (tsx-ts-mode :language-id typescriptreact)
 					  (typescript-mode :language-id typescript))

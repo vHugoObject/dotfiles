@@ -43,9 +43,6 @@
 (use-package org-habit
   :straight (:type built-in)
   :custom (add-to-list 'org-modules "org-habit" "add habits to org-modules")
-	(org-habit-preceding-days )
-	(org-habit-)
-	(org-habit-graph-column)
  )
 
 (defun my-org-confirm-babel-evaluate (lang body)
