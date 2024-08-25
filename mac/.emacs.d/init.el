@@ -1,6 +1,8 @@
 (setopt user-emacs-directory "~/.emacs.d/")
 
-(load "~/.emacs.d/init-files/package-management")
+(setopt init-files-directory "init-files")
+(setopt package-manager-file "package-management")
+(load (file-name-concat user-emacs-directory init-files-directory package-manager-file))
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -58,10 +60,10 @@
 	  )
 	)    
 (let* (
-       (init-files-folder (file-name-concat user-emacs-directory "init-files"))
+       (init-files-folder (file-name-concat user-emacs-directory init-files-directory))
        (ignore '("package-management.el"))
        (ignore-list (mapcar (lambda (file)
-			      (file-name-concat user-emacs-directory "init-files" file)
+			      (file-name-concat user-emacs-directory init-files-directory file)
 			      )
 			    ignore)
 	)
