@@ -49,14 +49,18 @@
   "Custom function for org-confirm-babel. Contains of
    a set of functions that don't need confirmation
    for evaluation"
-  (let ((langs (list "elisp" "emacs-lisp" "zsh" "sh" "shell")))
+  (let ((langs (list "elisp" "emacs-lisp"
+		     "zsh" "sh"
+		     "shell" "gnuplot")))
     (not (member lang langs))      
     )
   )
 (use-package ob-core
   :straight (:type built-in)
   :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
-	   (add-to-list 'org-babel-load-languages '((zsh . t)))
+	   (add-to-list 'org-babel-load-languages '((zsh . t)
+						    (gnuplot . t)
+						    ))
 	   )
  )
 

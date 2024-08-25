@@ -1,5 +1,4 @@
 #+auto_tangle: t
-
 * Templates
 #+begin_src emacs-lisp :tangle yes
 (setq org-capture-templates
