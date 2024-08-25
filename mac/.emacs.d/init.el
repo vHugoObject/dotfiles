@@ -1,4 +1,4 @@
-(add-to-list 'load-path "~/.emacs.d/init-files")
+(setopt user-emacs-directory "~/.emacs.d/")
 
 (load "~/.emacs.d/init-files/package-management")
 
@@ -58,21 +58,19 @@
 	  )
 	)    
 (let* (
-       (emacs-directory "/.emacs.d/init-files")
-       (file-path (concat "~" emacs-directory))
-       (ignore '("package-management.org"))
-       (home-directory (expand-file-name "~"))
+       (init-files-folder (file-name-concat user-emacs-directory "init-files"))
+       (ignore '("package-management.el"))
        (ignore-list (mapcar (lambda (file)
-			      (concat home-directory emacs-directory "/" file)
+			      (file-name-concat user-emacs-directory "init-files" file)
 			      )
 			    ignore)
 	)
-       (file-regex "\.org$")
-       (first-list (directory-files file-path t file-regex))
+       (file-regex "\.el$")
+       (first-list (directory-files init-files-folder t file-regex))
        (second-list
 	(seq-remove (apply-partially #'memberp ignore-list) first-list))	 
        (file-list (mapcar (lambda (file)
-			     (string-remove-suffix ".org" file)
+			     (file-name-sans-extension file)
 			     )
 			   second-list)
 		   )
