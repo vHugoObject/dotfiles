@@ -52,11 +52,24 @@
 	   )	     
  )
 
-(load "~/.emacs.d/init-files/language-modes")
-
-(load "~/.emacs.d/init-files/miscellaneous-packages")
-
-(load "~/.emacs.d/init-files/org-mode-settings")
-
-(load "~/.emacs.d/init-files/org-table-custom-functions")
-(load "~/.emacs.d/init-files/org-table-custom-functions-tests")
+(cl-flet (
+	(memberp (file-list file-name)
+	  (member file-name file-list)
+	  )
+	)    
+  (let* (
+       (file-path "~/.emacs.d/init-files")
+       (ignore '("~/.emacs.d/init-files/package-management"))
+       (file-regex "\.org$")
+       (first-list (directory-files file-path nil file-regex))
+       (second-list (mapcar (lambda (item)
+			    (concat file-path "/" (string-remove-suffix ".org" item))
+			    )
+			  first-list))
+       (file-list
+	(seq-remove (apply-partially #'memberp ignore) second-list))
+		   )
+   (mapc (lambda (file) (load file))	     
+	 file-list)
+   )
+  )
