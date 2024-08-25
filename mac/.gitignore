@@ -18,3 +18,12 @@ log/
 **/.clasp.json
 
 **/Tramp
+
+#emacs stuff
+**/.emacs.d/straight
+**/.emacs.d/projects
+**/.emacs.d/.cache
+**/.emacs.d/.lsp-session-v1
+**/.emacs.d/.org-id-locations
+**/.emacs.d/transient
+**/.emacs.d/tree-sitter
