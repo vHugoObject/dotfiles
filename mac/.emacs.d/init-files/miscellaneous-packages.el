@@ -27,3 +27,8 @@
 		  :fork t)
 
   )
+
+(use-package emr
+  :bind (:map prog-mode-map
+       ("M-RET" . 'emr-show-refactor-menu))
+  )

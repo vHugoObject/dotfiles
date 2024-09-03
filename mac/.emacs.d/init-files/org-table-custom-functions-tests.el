@@ -1,6 +1,8 @@
+(load "init-files/org-table-custom-functions")
+
 (ert-deftest org-list-average-test ()
   "test list-average function"
-  :tags :org
+  :tags '(:org)
   (let ((test-cases '(((2 1) . 1)
 		((9 8 7 9) . 8)
 		((110 1000 900 3000 30) . 1008)
@@ -13,9 +15,9 @@
 
  ))
 
-(ert-deftest org-hash-table-to-list ()      
+(ert-deftest org-hash-table-to-list-test ()      
  "test hash-table-to-list"
- :tags :org
+ :tags '(:org)
  (let ((table-1 (make-hash-table :test 'equal))
       (table-2 (make-hash-table :test 'equal))
       (table-3 (make-hash-table :test 'equal))
@@ -52,9 +54,9 @@
  )
 )
 
-(ert-deftest org-average-of-hash-table-values ()
+(ert-deftest org-average-of-hash-table-values-test ()
   "test average-of-hash-table-values"
-  :tags :org
+  :tags '(:org)
   (let ((table-holder (make-hash-table :test 'equal))
        (table-1 (make-hash-table :test 'equal))
        (table-2 (make-hash-table :test 'equal))
@@ -98,7 +100,7 @@
 
 (ert-deftest org-date-from-timestamp-test ()
 "test date-from-timestamp"
-:tags :org
+:tags '(:org)
 (let ((test-cases '(("<2024-05-19 Sun>" . "05-19-2024")
 	       ("<2024-06-28 Sun>" . "06-28-2024")
 	       ("<2024-06-25 Tue 16:24>" . "06-25-2024")
@@ -112,45 +114,74 @@
 )
 )
 
-(ert-deftest sum-puthash ()
+(ert-deftest sum-puthash-test ()
   "test sum-puthash"
-  :tags :org
-(let ((table-1 (make-hash-table :test 'equal))
-       (table-2 (make-hash-table :test 'equal))
-       (table-3 (make-hash-table :test 'equal))
-       (table-4 (make-hash-table :test 'equal))
-       (table-4 (make-hash-table :test 'equal))
-       (table-5 (make-hash-table :test 'equal))
-       (expected-sum-1 2)
-       (expected-sum-2 3)
-       (expected-sum-3 1030)
-       (expected-sum-4 15)
-       (expected-sum-5 0)
+  :tags '(:org)
+
+  (cl-flet (
+	    (create-test-case (alist table)
+	      (map-do (lambda (key value)
+			(sum-puthash key value table))
+		      alist)
+	      )
+	    )
+    (let* (
+	  (table-1 (make-hash-table :test 'equal))
+	  (alist-1 (list (cons 1 2)
+		     (cons 3 4)
+		     )
+	       )
+	  (expected-sum-1 2)
+
+	  (table-2 (make-hash-table :test 'equal))
+	  (alist-2 (list (cons 'a 1)
+		     (cons 'a 3)
+		     )
+	       )
+	  (expected-sum-2 4)
+
+	  (table-3 (make-hash-table :test 'equal))
+	  (alist-3 (list (cons 'x 10)
+		     (cons 'x 1000)
+		     (cons 'x 20)
+		     (cons 'y 200)
+		     )
+	       )
+	  (expected-sum-3 1030)
+
+	  (table-4 (make-hash-table :test 'equal))
+	  (alist-4 (list (cons 'z 1.5)
+			 (cons 'z 1.5)
+			 (cons 'z 3)
+			 (cons 'z 9)
+			 (cons 'aa 9)
+			 (cons 'aa 9)
+		     )
+	       )
+	  (expected-sum-4 15)
+
+	  (table-5 (make-hash-table :test 'equal))
+	  (alist-5 (list (cons 'b -9)
+			 (cons 'b -9)
+			 (cons 'b -9)
+			 (cons 'b -9)
+			 (cons 'b -9)
+			 (cons 'b 45)
+			 )
+		   )
+
+	  (expected-sum-5 0)
+	  (test-sums (list (cons alist-1 table-1)
+			    (cons alist-2 table-2)
+			    (cons alist-3 table-3)
+			    (cons alist-4 table-4)
+			    (cons alist-5 table-5)
+			    ))
        )
-  (sum-puthash 1 2 table-1)
-  (sum-puthash 3 4 table-1)
 
-  (sum-puthash 'a 1 table-2)
-  (sum-puthash 'a 2 table-2)
 
-  (sum-puthash 'x 10 table-3)
-  (sum-puthash 'x 1000 table-3)
-  (sum-puthash 'x 20 table-3)
-  (sum-puthash 'y 200 table-3)
+  (map-do #'create-test-case test-sums)
 
-  (sum-puthash 'z 1.5 table-4)
-  (sum-puthash 'z 1.5 table-4)
-  (sum-puthash 'z 3 table-4)
-  (sum-puthash 'z 9 table-4)
-  (sum-puthash 'aa 9 table-4)
-  (sum-puthash 'aa 9 table-4)
-
-  (sum-puthash 'b -9 table-5)
-  (sum-puthash 'b -9 table-5)
-  (sum-puthash 'b -9 table-5)
-  (sum-puthash 'b -9 table-5)
-  (sum-puthash 'b -9 table-5)
-  (sum-puthash 'b 45 table-5)
 
   (let* (
 	(actual-sum-1 (gethash 1 table-1))
@@ -173,10 +204,12 @@
 
 
   )
+    )
+
  )
 
 (ert-deftest org-hash-table-equal ()
-  :tags :org
+  :tags '(:org)
       (let* (
 	   (test-hash-table1 (make-hash-table :test 'equal))
 	   (test-hash-table2 (make-hash-table :test 'equal))

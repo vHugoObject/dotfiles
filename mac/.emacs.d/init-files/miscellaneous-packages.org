@@ -13,6 +13,7 @@
 	     )
     )
 #+end_src
+* code 
 ** setup magit
 #+begin_src emacs-lisp :tangle yes
   (use-package magit
@@ -43,4 +44,12 @@
     
     )
 #+end_src
+** setup emacs-refactor
+#+begin_src elisp :tangle yes  
+  (use-package emr
+    :bind (:map prog-mode-map
+	 ("M-RET" . 'emr-show-refactor-menu))
+    )
+#+end_src
+
 

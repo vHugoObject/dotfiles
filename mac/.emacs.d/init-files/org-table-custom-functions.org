@@ -43,15 +43,19 @@
       (when (not (eq (hash-table-count hash-table1) (hash-table-count hash-table2))) (throw 'TAG nil))
       (maphash
        (lambda (key value)
-         (when (equal hash (gethash key hash-table2 hash)) (throw 'TAG nil))
-         (when (not (equal value (gethash key hash-table2))) (throw 'TAG nil)))
+	 (when (equal hash (gethash key hash-table2 hash)) (throw 'TAG nil))
+	 (when (not (equal value (gethash key hash-table2))) (throw 'TAG nil)))
        hash-table1)
       t))
     )
 
+(defun average-of-hash-table (table)
+    "Average per day of table "
+    (average-of-hash-table-values (org-table-to-hash-table table 'date-from-timestamp))
+   )
 #+END_SRC
 
-* Org-table-functions
+* Org-table functions
 #+NAME: org-table-functions
 #+begin_src emacs-lisp :tangle yes :session table-functions
 
@@ -65,20 +69,14 @@
       hash-table)
     )
 
-  (defun average-of-hash-table (table)
-    "Average per day of table "
-    (average-of-hash-table-values (org-table-to-hash-table table 'date-from-timestamp))
-    )
+
 
   (defun by-day-table (table)
     "Create a table where the first column is a day and second column is the sum for that day"
     (hash-table-to-list (org-table-to-hash-table table 'date-from-timestamp))
     )
 
+(org-table-to-hash-table (list (cons 2 1) (cons 3 4)))
 #+end_src
 
-#+NAME: org-table-functions-wrapper
-#+begin_src emacs-lisp :noweb yes
-<<org-table-functions>>
-#+end_src
 
