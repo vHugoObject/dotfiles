@@ -1,4 +1,5 @@
 (use-package org
+  :after (use-package-ensure-system-package)
   :straight nil
   :mode ("\\.org\\'" . org-mode)
   :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
@@ -16,26 +17,31 @@
   )
 
 (use-package org-auto-tangle
+  :after (org)
   :hook (org-mode . org-auto-tangle-mode)
   )
 
 (use-package org-table
+  :after (org)
   :straight (:type built-in)
   :custom (org-table-duration-custom-format 'hh:mm "format for the output of calc computations")
  )
 
 (use-package org-attach
+  :after (org)
   :straight (:type built-in)
   :custom (org-attach-method 'l "set symbolic link as a default attachment method")
  )
 
 (use-package org-clock
+  :after (org)
   :straight (:type built-in)
   :custom (org-clock-clocked-in-display 'both  "display clock in both mode-line and frame-title")
 	(org-clock-persist t "save the running clock when emacs is closed")
  )
 
 (use-package org-duration
+  :after (org)
   :straight (:type built-in)
   :custom (org-duration-format (quote h:mm) "Duration format will always be hours:minutes")
  )
@@ -51,31 +57,38 @@
    for evaluation"
   (let ((langs (list "elisp" "emacs-lisp"
 		     "zsh" "sh"
-		     "shell" "gnuplot")))
+		     "shell" "gnuplot"
+		     "sqlite" "sqlite3"
+		     )))
     (not (member lang langs))      
     )
   )
 (use-package ob-core
+  :after (org)
   :straight (:type built-in)
-  :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
-	   (add-to-list 'org-babel-load-languages '((zsh . t)
-						    (gnuplot . t)
-						    ))
+  :config (org-babel-do-load-languages
+	    'org-babel-load-languages (quote ((emacs-lisp . t)
+					      (sqlite . t)
+					      (shell . t))))
+  :custom ((org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)	     	     
 	   )
+
  )
 
 (load "~/.emacs.d/init-files/org-capture-templates")
   (use-package org-capture
+    :after (org)
     :straight (:type built-in)
     :custom (org-capture-templates org-capture-templates)
     )
 
 (use-package org-pomodoro
+  :after (org)
   :commands (org-pomodoro)
   :bind ("M-C-o" . org-pomodoro)
   ;; autosave on pomodorro finish
   :hook ((org-pomodoro-finished . save-buffer)
-         (org-pomodoro-started . save-buffer)
+	 (org-pomodoro-started . save-buffer)
 	 (org-pomodoro-break-finished . save-buffer)
 	 )
   :custom

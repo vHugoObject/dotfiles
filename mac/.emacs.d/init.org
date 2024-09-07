@@ -3,115 +3,65 @@
 * startup 
 ** set emacs-directory
 #+begin_src elisp :tangle yes
-  (setopt user-emacs-directory "~/.emacs.d/")
+  (setopt user-emacs-directory "~/.emacs.d/"
+	  init-files-directory "init-files"
+	  )
 #+end_src
-** load package-management
+
+* setup straight.el
+** straight custom variables
 #+begin_src elisp :tangle yes
-  (setopt init-files-directory "init-files")
-  (setopt package-manager-file "package-management")
-  (load (file-name-concat user-emacs-directory init-files-directory package-manager-file))
-
+  (setopt straight-fix-flycheck t)
+  (setopt straight-use-package-by-default t)
+  (setopt straight-repository-branch "master")
+  (setopt straight-host-usernames '((github . "vHugoObject")))
+  (setopt straight-default-vc 'git)  
 #+end_src
 
+** load straight.el
+#+begin_src elisp :tangle yes
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+	   (expand-file-name
+	    "straight/repos/straight.el/bootstrap.el"
+	    (or (bound-and-true-p straight-base-dir)
+		user-emacs-directory)))
+	  (bootstrap-version 7))
+      (unless (file-exists-p bootstrap-file)
+	(with-current-buffer
+	    (url-retrieve-synchronously
+	     "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+	     'silent 'inhibit-cookies)
+	  (goto-char (point-max))
+	  (eval-print-last-sexp)))
+      (load bootstrap-file nil 'nomessage))
 
-* emacs housekeeping
-** options
-#+begin_src emacs-lisp :tangle yes
-  (menu-bar-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1)
-  (show-paren-mode 1)
-  (line-number-mode 1)
-  (column-number-mode 1)  
-  (setopt warning-minimum-level :emergency)
-  (setopt inhibit-startup-message t)
+#+end_src
   
-      (setopt create-lockfiles nil)
-      ;; don't ask for confirmation when opening symlinked file
-      (setopt vc-follow-symlinks t)
-      ;; for tramp
-      (setopt vc-handled-backends '(SVN Git))
-      (setopt remote-file-name-inhibit-locks t)
-#+end_src
-
-** force buffer menu to always open in other window
-#+begin_src emacs-lisp :tangle yes
-(global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
-#+end_src
-
-** custom function to quickly kill emacs
-#+begin_src emacs-lisp :tangle yes
-  (defun my-kill-emacs ()
-  "save some buffers, then exit unconditionally"
-  (interactive)
-  (save-some-buffers nil t)
-  (kill-emacs))
-  ;; create a keymap with new function
-  (global-set-key (kbd "C-x C-c") 'my-kill-emacs)
-#+end_src
-
-** prevent custom edit from adding settings to init.el
-#+begin_src emacs-lisp :tangle yes
-  (use-package cus-edit
-    :straight (:type built-in)
-    :custom
-    (custom-file null-device "Don't store customizations"))			 
-#+end_src
-
-** initial frame size
-#+begin_src emacs-lisp :tangle yes
-  (use-package frame
-    :straight (:type built-in)
-    :custom
-    (initial-frame-alist
-	 '((top . 1) (left . 1) (width . 200) (height . 60)))
-   )
-#+end_src
-
-** customize dired
-#+begin_src emacs-lisp :tangle yes
-  (use-package dired
-    :straight (:type built-in)
-    :hook (dired-mode . (lambda ()
-	      (define-key dired-mode-map
-		(kbd "C-c C-x a")
-		#'org-attach-dired-to-subtree)))
-    :custom ((dired-recursive-deletes t)
-	     (dired-vc-rename-file t)
-	     (dired-create-destination-dirs 'ask)
-	     )	     
-   )
+* setup use-package
+** install use-package using straight.el and use-package-ensure-system-package
+#+begin_src elisp :tangle yes
+  (use-package use-package-ensure-system-package
+    :init (straight-use-package 'use-package)
+    )  
 #+end_src
 
 
 * load all files in init-files directory
 #+begin_src elisp :tangle yes
-  (cl-flet (
-	  (memberp (file-list file-name)
-	    (member file-name file-list)
-	    )
-	  )    
+
   (let* (
-	 (init-files-folder (file-name-concat user-emacs-directory init-files-directory))
-	 (ignore '("package-management.el"))
-	 (ignore-list (mapcar (lambda (file)
-				(file-name-concat user-emacs-directory init-files-directory file)
-				)
-			      ignore)
-	  )
+	 (init-files-folder (file-name-concat user-emacs-directory init-files-directory))	 
 	 (file-regex "\.el$")
-	 (first-list (directory-files init-files-folder t file-regex))
-	 (second-list
-	  (seq-remove (apply-partially #'memberp ignore-list) first-list))	 
+	 (first-list (directory-files init-files-folder t file-regex))	 
 	 (file-list (mapcar (lambda (file)
 			       (file-name-sans-extension file)
 			       )
-			     second-list)
+			     first-list)
 		     )
      )
       (mapc (lambda (file) (load file))	     
 	   file-list))
-  )
 #+end_src
 
 

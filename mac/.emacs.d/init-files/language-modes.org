@@ -2,18 +2,20 @@
 
 * Setup treesit-auto for language grammars
 #+begin_src emacs-lisp :tangle yes  
-(use-package treesit-auto
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  (use-package treesit-auto
+    :after (use-package-ensure-system-package)
+    :custom
+    (treesit-auto-install 'prompt)
+    :config
+    (treesit-auto-add-to-auto-mode-alist 'all)
+    (global-treesit-auto-mode))
 #+end_src
 
 * language specific modes  
 ** rust mode
 #+begin_src emacs-lisp :tangle yes  
   (use-package rust-ts-mode
+    :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :defer t
     :mode "\\.rs\\'")
@@ -21,12 +23,14 @@
 ** javascript mode
 #+begin_src emacs-lisp :tangle yes
   (use-package js-ts-mode
+    :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :mode "\\.js\\'")
 #+end_src
 ** typescript mode
 #+begin_src emacs-lisp :tangle yes  
   (use-package typescript-ts-mode
+    :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :defer t
     :mode "\\.tsx?\\'")
@@ -34,20 +38,23 @@
 ** json mode
 #+begin_src emacs-lisp :tangle yes  
   (use-package json-ts-mode
+    :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :defer t
     :mode "\\.json\\'")
 #+end_src
 ** setup flycheck
 #+begin_src emacs-lisp :tangle yes
-    (use-package flycheck
-      :hook (after-init-hook . global-flycheck-mode)
-      )
+  (use-package flycheck
+    :after (use-package-ensure-system-package)
+    :hook (after-init-hook . global-flycheck-mode)
+    )
 #+end_src
 
 * setup eglot
 #+begin_src emacs-lisp :tangle yes
   (use-package eglot
+    :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :hook ((rust-mode . eglot-ensure)
 	   (typescript-mode . lsp-deferred)

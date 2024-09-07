@@ -1,4 +1,5 @@
 (use-package treesit-auto
+  :after (use-package-ensure-system-package)
   :custom
   (treesit-auto-install 'prompt)
   :config
@@ -6,29 +7,35 @@
   (global-treesit-auto-mode))
 
 (use-package rust-ts-mode
+  :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
   :mode "\\.rs\\'")
 
 (use-package js-ts-mode
+  :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :mode "\\.js\\'")
 
 (use-package typescript-ts-mode
+  :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
   :mode "\\.tsx?\\'")
 
 (use-package json-ts-mode
+  :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
   :mode "\\.json\\'")
 
 (use-package flycheck
+  :after (use-package-ensure-system-package)
   :hook (after-init-hook . global-flycheck-mode)
   )
 
 (use-package eglot
+  :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :hook ((rust-mode . eglot-ensure)
 	 (typescript-mode . lsp-deferred)
