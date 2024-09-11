@@ -1,25 +1,32 @@
-;; remove menu bar and toolbar
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
+(show-paren-mode 1)
+(line-number-mode 1)
+(column-number-mode 1)  
+(setopt warning-minimum-level :emergency
+	inhibit-startup-message t
+	create-lockfiles nil
+	;; don't ask for confirmation when opening symlinked file
+	vc-follow-symlinks t
+	;; for tramp
+	vc-handled-backends '(SVN Git)
+	remote-file-name-inhibit-locks t)
 
-;; force buffer menu to always open in other window
 (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
 
-(setq warning-minimum-level :emergency)
-(setq inhibit-startup-message t)
-(setq dired-kill-when-opening-new-dired-buffer t)
-(setq create-lockfiles nil)
-;; don't ask for confirmation when opening symlinked file
-(setq vc-follow-symlinks t)     
+(use-package dired
+  :hook (dired-mode . (lambda ()
+	    (define-key dired-mode-map
+	      (kbd "C-c C-x a")
+	      #'org-attach-dired-to-subtree)))
+  :custom ((dired-recursive-deletes t)
+	   (dired-vc-rename-file t)
+	   (dired-create-destination-dirs 'ask)
+	   )	     
+ )
 
 
-;; fast quit
-(defun my-kill-emacs ()
-  "save some buffers, then exit unconditionally"
-  (interactive)
-  (save-some-buffers nil t)
-  (kill-emacs))
-(global-set-key (kbd "C-x C-c") 'my-kill-emacs)
 
 ;; setup use-package
 (eval-when-compile
@@ -34,35 +41,6 @@
                          ("melpa"     . "https://melpa.org/packages/")))  				     )
 
 
-
-;; only load rust-mode when needed
-(use-package rust-mode
-  :ensure t
-  :mode "\\.rs\\'"
-)
-
-(use-package js-mode
-  :ensure t
-  :mode ( "\\.js\\'" "\\.mjs\\'")
-)
-
-(use-package web-mode
-  :ensure t
-  :mode ("\\.html?\\'" "\\.tsx\\'" "\\.jsx\\'")
-  :custom (web-mode-enable current-element-highlight t)
-)
-
-
-(use-package typescript-mode
-:ensure t
-:mode "\\.ts\\'")
-
-(use-package flycheck
-:hook (typescript-mode js-mode web-mode-enable)
-:custom (flycheck-add-mode 'javascript-eslint 'web-mode)
-)
-
-
 (use-package magit
   :ensure t
   :bind (("C-c C-g" . magit-status)
@@ -70,6 +48,53 @@
 	 )
  )
 
-(use-package cus-edit
+(use-package treesit-auto
   :custom
-  (custom-file null-device "Don't store customizations"))
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+(use-package rust-ts-mode
+  :defer t
+  :mode "\\.rs\\'")
+
+
+(use-package js-ts-mode
+  :after (use-package-ensure-system-package)
+  :mode "\\.js\\'")
+
+(use-package typescript-ts-mode
+  :after (use-package-ensure-system-package)
+  :defer t
+  :mode "\\.tsx?\\'")
+
+(use-package json-ts-mode
+  :after (use-package-ensure-system-package)
+  :defer t
+  :mode "\\.json\\'")
+
+(use-package eglot
+  :hook ((rust-mode . eglot-ensure)
+	 (typescript-mode . lsp-deferred)
+	 )
+  :bind (:map eglot-mode-map
+	    ("C-c d" . eldoc)
+	    ("C-c a" . eglot-code-actions)
+	    ("C-c f" . flymake-show-buffer-diagnostics)
+	    ("C-c r" . eglot-rename))
+  :config (add-to-list 'eglot-server-programs
+		       '(((js-mode :language-id javascript)
+					(js-ts-mode :language-id javascript)
+					(tsx-ts-mode :language-id typescriptreact)
+					(typescript-mode :language-id typescript))
+				       . ("typescript-language-server" "--stdio"))
+		       `(rust-mode . ("rust-analyzer" :initializationOptions
+				     ( :procMacro (:enable t)
+				       :cargo ( :buildScripts (:enable t)
+						:features "all")))))
+  )
+
+(use-package flycheck
+  :hook (after-init-hook . global-flycheck-mode)
+  )
