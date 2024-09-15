@@ -56,3 +56,7 @@
 				       :cargo ( :buildScripts (:enable t)
 						:features "all")))))
   )
+
+(use-package package-lint
+  :after (use-package-ensure-system-package)    
+  )

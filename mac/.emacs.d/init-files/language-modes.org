@@ -76,4 +76,9 @@
 						  :features "all")))))
     )
 #+end_src
-
+* setup package-lint
+#+begin_src elisp :tangle yes
+  (use-package package-lint
+    :after (use-package-ensure-system-package)    
+    )
+#+end_src
