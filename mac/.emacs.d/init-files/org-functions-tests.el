@@ -9,7 +9,7 @@
   :tags '(:org)
   (let (
 	(format-string-names (list "hour" "day" "weekday" "week" "month" "year"))
-	(formatters (list "%H" "%m-%d-%Y" "%A" "%U" "%B" "%Y"))
+	(formatters (list "%H" "%m/%d/%Y" "%A" "%U" "%B" "%Y"))
 	)
     (seq-do-indexed (lambda (format-string-name index)
 		      (should (string= (get-date-format-string format-string-name) (nth index formatters)))
@@ -43,7 +43,7 @@
   (let (
 	(test-cases (list
 	 (cons "hour" (cons "<2024-07-04 Thu 13:31>" "13"))
-	 (cons "day" (cons "<2024-05-19 Sun>" "05-19-2024"))
+	 (cons "day" (cons "<2024-05-19 Sun>" "05/19/2024"))
 	 (cons "weekday" (cons "<2024-06-28 Fri>" "Friday"))
 	 (cons "week" (cons "<2024-06-25 Tue 16:24>" "25"))
 	 (cons "month" (cons "<2024-07-04 Thu 13:31>" "July"))
@@ -57,7 +57,7 @@
     )
     )
 
-(ert-deftest time-divide-test ()
+(ert-deftest time-diff-test ()
   :tags '(:org)
   (let* (
 	 (test-arguments-one (list (list "<2024-05-19 Sun>" "<2024-05-21 Tue>") seconds-in-one-day)
@@ -80,7 +80,7 @@
 	      (let* (
 		    (test-dates (format-list-of-date-strings (car test-args)))
 		    (test-divisor (car (cdr test-args)))
-		    (actual-answer (time-divide test-dates test-divisor))
+		    (actual-answer (time-diff test-dates test-divisor))
 		    )
 
 		(should (= actual-answer expected-answer))
@@ -127,31 +127,32 @@
 (ert-deftest get-dates-in-range-test ()
   :tags '(:org)
   (let* (
+	 (test-arguments-one (list "<2024-05-19 Sun>" "<2024-05-21 Tue>")
+			     )
 
-	 (test-arguments-one (list "05/19/24" "05/21/24"))
+	 (answer-one (list "05/19/2024" "05/20/2024" "05/21/2024"))
 
-	 (answer-one (list "05/19/24" "05/20/24" "05/21/24"))
-
-	 (test-arguments-two (list "05/20/24" "05/21/24"))	   
-
-	(answer-two (list "05/20/24" "05/21/24" "05/22/24"
-		"05/23/24" "05/24/24" "05/25/24"
-		"05/26/24" "05/27/24" "05/28/24"))
-
-	(test-arguments-three (list "05/20/24" "06/19/24")			  
+	 (test-arguments-two (list "<2024-05-20 Mon>" "<2024-05-28 Tue>")			  
 	 )
 
-	(answer-three (list "05/19/24" "05/20/24" "05/21/24"
-		  "05/22/24" "05/23/24" "05/24/24"
-		  "05/25/24" "05/26/24" "05/27/24"
-		  "05/28/24" "05/29/24" "05/30/24"
-		  "05/31/24" "06/01/24" "06/02/24"
-		  "06/03/24" "06/04/24" "06/05/24"
-		  "06/06/24" "06/07/24" "06/08/24"
-		  "06/09/24" "06/10/24" "06/11/24"
-		  "06/12/24" "06/13/24" "06/14/24"
-		  "06/15/24" "06/16/24" "06/17/24"
-		  "06/18/24" "06/19/24"))
+	(answer-two (list "05/20/2024" "05/21/2024" "05/22/2024"
+		"05/23/2024" "05/24/2024" "05/25/2024"
+		"05/26/2024" "05/27/2024" "05/28/2024"))
+
+	(test-arguments-three (list "<2024-05-19 Sun>" "<2024-06-19 Wed>")			  
+	 )
+
+	(answer-three (list "05/19/2024" "05/20/2024" "05/21/2024"
+		  "05/22/2024" "05/23/2024" "05/24/2024"
+		  "05/25/2024" "05/26/2024" "05/27/2024"
+		  "05/28/2024" "05/29/2024" "05/30/2024"
+		  "05/31/2024" "06/01/2024" "06/02/2024"
+		  "06/03/2024" "06/04/2024" "06/05/2024"
+		  "06/06/2024" "06/07/2024" "06/08/2024"
+		  "06/09/2024" "06/10/2024" "06/11/2024"
+		  "06/12/2024" "06/13/2024" "06/14/2024"
+		  "06/15/2024" "06/16/2024" "06/17/2024"
+		  "06/18/2024" "06/19/2024"))
 
 	(test-cases (list
 		     (cons test-arguments-one answer-one)
@@ -162,7 +163,6 @@
 
 	)
     (map-do (lambda (test-arguments expected-range)
-	      (message "%S" test-arguments)
 	      (let* (
 		    (test-dates (format-list-of-date-strings test-arguments))
 		    (actual-range (funcall #'get-dates-in-range test-dates))
@@ -176,17 +176,89 @@
 
     )
 
-(ert-deftest list-average-test ()
-  "test list-average function"
+(ert-deftest seq-average-hash-table-test ()
+  "test average-of-hash-table-values"
   :tags '(:org)
-  (let ((test-cases '(((2 1) . 1)
-		((9 8 7 9) . 8)
-		((110 1000 900 3000 30) . 1008)
-		))
+
+  (cl-flet (
+	   (create-test-case (table alist)
+	     (map-do (lambda (key value)
+		       (puthash key value table))
+		     alist)
+	     )
+	   )
+
+  (let* (
+       (table-1 (make-hash-table :test 'equal))
+       (table-values-1 (list (cons 1 110)
+			   (cons 2 1000)
+			   (cons 3 900)
+			   (cons 4 3000)
+			   (cons 5 3000)
+			   ))
+
+       (average-1 1602)
+
+       (table-2 (make-hash-table :test 'equal))
+       (table-values-2 (list (cons 'a 150000)
+			   (cons 'b 300000)
+			   (cons 'c 250000)
+			   ))
+       (average-2 233333)
+
+       (table-3 (make-hash-table :test 'equal))
+       (table-values-3 (list (cons 13 2)
+			   (cons 14 7)
+			   (cons 15 9)
+			   ))
+       (average-3 6)
+
+       (table-4 (make-hash-table :test 'equal))
+       (table-values-4 (list (cons 'x 15)
+			   ))
+       (average-4 15)
+       (test-cases (list
+		    (cons table-1 table-values-1)
+		    (cons table-2 table-values-2)
+		    (cons table-3 table-values-3)
+		    (cons table-4 table-values-4)
+		    ))
+       (tests (list
+		    (cons table-1 average-1)
+		    (cons table-2 average-2)
+		    (cons table-3 average-3)
+		    (cons table-4 average-4)
+		    ))
+       )
+
+    (map-do #'create-test-case test-cases)      
+    (map-do (lambda (table average)
+	       (should (= (seq-average table) average))
+	       ) tests)
+
+    )
+  )
+  )
+
+(ert-deftest seq-average-lists-test ()
+  :tags '(:org)
+  (let* (
+	(test-one (list 2 1))
+	(answer-one 1)
+	(test-two (list 9 8 7 9))
+	(answer-two 8)
+	(test-three (list 110 1000 900 3000 30))
+	(answer-three 1008)
+	(test-cases (list
+		    (cons test-one answer-one)
+		    (cons test-two answer-two)
+		    (cons test-three answer-three)
+		    )
+	 )
 	)
 
     (map-do (lambda (test-case answer)
-	      (should (= (list-average test-case) answer))
+	      (should (= (seq-average test-case) answer))
 	      ) test-cases)
 
  ))
@@ -472,7 +544,7 @@
 		)
       (tests (list
 	      (cons (list test-one #'identity) answer-one)
-	      (cons (list test-one #'identity) answer-one)
+	      (cons (list test-two #'identity) answer-two)
 	      )
 	     )
       )
@@ -487,70 +559,6 @@
 	  )	 
 	tests)
 )
-  )
-  )
-
-(ert-deftest average-of-hash-table-values-test ()
-  "test average-of-hash-table-values"
-  :tags '(:org)
-
-  (cl-flet (
-	   (create-test-case (table alist)
-	     (map-do (lambda (key value)
-		       (puthash key value table))
-		     alist)
-	     )
-	   )
-
-  (let* (
-       (table-1 (make-hash-table :test 'equal))
-       (table-values-1 (list (cons 1 110)
-			   (cons 2 1000)
-			   (cons 3 900)
-			   (cons 4 3000)
-			   (cons 5 3000)
-			   ))
-
-       (average-1 1602)
-
-       (table-2 (make-hash-table :test 'equal))
-       (table-values-2 (list (cons 'a 150000)
-			   (cons 'b 300000)
-			   (cons 'c 250000)
-			   ))
-       (average-2 233333)
-
-       (table-3 (make-hash-table :test 'equal))
-       (table-values-3 (list (cons 13 2)
-			   (cons 14 7)
-			   (cons 15 9)
-			   ))
-       (average-3 6)
-
-       (table-4 (make-hash-table :test 'equal))
-       (table-values-4 (list (cons 'x 15)
-			   ))
-       (average-4 15)
-       (test-cases (list
-		    (cons table-1 table-values-1)
-		    (cons table-2 table-values-2)
-		    (cons table-3 table-values-3)
-		    (cons table-4 table-values-4)
-		    ))
-       (tests (list
-		    (cons table-1 average-1)
-		    (cons table-2 average-2)
-		    (cons table-3 average-3)
-		    (cons table-4 average-4)
-		    ))
-       )
-
-    (map-do #'create-test-case test-cases)      
-    (map-do (lambda (table average)
-	       (should (= (average-of-hash-table-values table) average))
-	       ) tests)
-
-    )
   )
   )
 
@@ -663,9 +671,9 @@
 	     )
 			     )
       (answer-two (list
-		  (cons "09-01-2024" 750)
-		 (cons "09-02-2024" 600)
-		 (cons "09-03-2024" 400)
+		  (cons "09/01/2024" 750)
+		 (cons "09/02/2024" 600)
+		 (cons "09/03/2024" 400)
 		 )
 		)
 
@@ -706,9 +714,9 @@
 	    )
 	   (answer-one
 	    (list
-		 (list "05-19-2024" 1800)
-		 (list "05-20-2024" 2400)
-		 (list "05-21-2024" 200)
+		 (list "05/19/2024" 1800)
+		 (list "05/20/2024" 2400)
+		 (list "05/21/2024" 200)
 			  )
 	    )
 
@@ -723,9 +731,9 @@
 			     )
 	   (answer-two
 	    (list
-	     (list "09-01-2024" 750)
-	     (list "09-02-2024" 600)
-	     (list "09-03-2024"  400)
+	     (list "09/01/2024" 750)
+	     (list "09/02/2024" 600)
+	     (list "09/03/2024"  400)
 	     )
 			     )
 	   (test-three
@@ -734,7 +742,7 @@
 		    )
 	    )
 	   (answer-three (list
-			  (list "09-01-2024" 1050)
+			  (list "09/01/2024" 1050)
 			      )
 			     )
 
@@ -818,5 +826,99 @@
 
 	     )
 	       )
+
+(ert-deftest org-link-creator-test ()
+  :tags '(:org)
+  (let* (
+	 (file-one "file-one.org")
+	 (answer-one "** [[file:file-one.org][file-one.org]]\n")
+	 (test-two "test-two.org")
+	 (answer-two "** [[file:test-two.org][test-two.org]]\n")
+	 (tests (list
+		 (cons file-one answer-one)
+		 (cons test-two answer-two)
+		 )
+		)
+	 )
+    (map-do (lambda (test expected-link)
+	      (let (
+		    (actual-link (org-link-creator test))
+		    )
+		(should (string= actual-link expected-link))
+		)
+	      )
+     tests)
+    )
+  )
+
+(ert-deftest directory-to-table-of-contents-test ()
+  :tags '(:org)
+  (cl-flet* (
+	    (make-temp-test-files (list-of-test-files)
+	      (mapcar (lambda (test-file)
+			(when (file-exists-p test-file) (delete-file test-file))
+			(make-empty-file test-file)
+			(should (equal (file-exists-p test-file) 't))
+			)
+	       list-of-test-files)
+	      )
+
+	    (delete-temp-test-files (list-of-test-files)
+	      (mapcar (lambda (test-file)
+			(when (file-exists-p test-file) (delete-file test-file))
+			(should (equal (file-exists-p test-file) nil))
+			)
+	       list-of-test-files)
+	      )
+
+	    (full-test-file-addresses (list-of-test-files)
+	      (mapcar (lambda (test-file)
+			(file-name-concat temporary-file-directory test-file)
+			)
+	       list-of-test-files)		
+	      )
+
+	    (create-expected-list (expected-entries)
+	      (mapconcat #'identity expected-entries)
+	      )
+
+
+	    (test-runner (test-case expected-list)
+	      (funcall #'make-temp-test-files (car test-case))
+	      (let* (
+		    (file-extension (car (cdr test-case)))
+		    (test-arguments (list temporary-file-directory file-extension))
+		    (actual-list (apply #'directory-to-table-of-contents test-arguments))
+		    )
+		(unwind-protect
+		    (should (string= actual-list expected-list))
+		  (funcall #'delete-temp-test-files (car test-case))
+		    )
+
+		)
+
+
+	      )
+	    )
+    (let* (	  
+	(test-files-one (full-test-file-addresses (list "file-one.org" "file-two.org" "file-three.el")))
+	(test-extension-one ".org")
+	(test-answer-one (create-expected-list (list "* Table des matières\n" "** [[file:file-one.org][file-one.org]]\n" "** [[file:file-two.org][file-two.org]]\n")))
+
+	(test-files-two (full-test-file-addresses (list "file-4.el" "file-5.el" "file-6.og")))
+	(test-extension-two ".el")
+	(test-answer-two (create-expected-list (list "* Table des matières\n" "** [[file:file-4.el][file-4.el]]\n" "** [[file:file-5.el][file-5.el]]\n")))
+
+	(tests (list
+		(cons (list test-files-one test-extension-one) test-answer-one)
+		(cons (list test-files-two test-extension-two) test-answer-two)
+		)
+	 )
+	)
+      (map-do #'test-runner tests)
+    )
+    )
+
+  )
 
 (provide 'org-table-custom-functions-tests)
