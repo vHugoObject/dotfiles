@@ -58,5 +58,11 @@
   )
 
 (use-package package-lint
-  :after (use-package-ensure-system-package)    
+  :after (use-package-ensure-system-package)
+  :straight (package-lint :type git :host github :repo "purcell/package-lint"
+			  :fork t)
+  )
+
+(use-package compat
+  :after (use-package-ensure-system-package)
   )
