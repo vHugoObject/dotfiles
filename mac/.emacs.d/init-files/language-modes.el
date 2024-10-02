@@ -21,7 +21,13 @@
   :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
-  :mode "\\.tsx?\\'")
+  :mode "\\.ts$\\'")
+
+(use-package tsx-ts-mode
+  :after (use-package-ensure-system-package)
+  :straight (:type built-in)
+  :defer t
+  :mode "\\.tsx$\\'")
 
 (use-package json-ts-mode
   :after (use-package-ensure-system-package)
@@ -45,16 +51,20 @@
 	    ("C-c a" . eglot-code-actions)
 	    ("C-c f" . flymake-show-buffer-diagnostics)
 	    ("C-c r" . eglot-rename))
-  :config (add-to-list 'eglot-server-programs
+  :custom
+  (add-to-list 'project-vc-extra-root-markers "tsconfig.json")
+  (add-to-list 'eglot-server-programs
 		       '(((js-mode :language-id javascript)
 					(js-ts-mode :language-id javascript)
-					(tsx-ts-mode :language-id typescriptreact)
+					(tsx-ts-mode :language-id tsx)
 					(typescript-mode :language-id typescript))
 				       . ("typescript-language-server" "--stdio"))
 		       `(rust-mode . ("rust-analyzer" :initializationOptions
 				     ( :procMacro (:enable t)
 				       :cargo ( :buildScripts (:enable t)
 						:features "all")))))
+
+
   )
 
 (use-package package-lint

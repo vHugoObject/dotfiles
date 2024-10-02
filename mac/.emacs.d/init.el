@@ -1,5 +1,6 @@
 (setopt user-emacs-directory "~/.emacs.d/"
 	init-files-directory "init-files"
+	personal-packages "personal-packages"
 	)
 
 (setopt straight-fix-flycheck t)
@@ -28,15 +29,12 @@
   :init (straight-use-package 'use-package)
   )
 
-(let* (
+(let* ((file-regex "\.el$")
        (init-files-folder (file-name-concat user-emacs-directory init-files-directory))	 
-       (file-regex "\.el$")
-       (first-list (directory-files init-files-folder t file-regex))	 
-       (file-list (mapcar (lambda (file)
-			     (file-name-sans-extension file)
-			     )
-			   first-list)
-		   )
-   )
-    (mapc (lambda (file) (load file))	     
-	 file-list))
+       (first-list (directory-files init-files-folder 't file-regex))
+       (init-files (mapcar #'file-name-sans-extension first-list))	 
+       (personal-packages-directory (file-name-concat user-emacs-directory personal-packages))
+       (second-list (directory-files-recursively personal-packages-directory file-regex))
+       (personal-packages-files (mapcar #'file-name-sans-extension second-list))
+       (file-list (seq-concatenate 'list init-files personal-packages-files)))    
+    (mapc #'load file-list))
