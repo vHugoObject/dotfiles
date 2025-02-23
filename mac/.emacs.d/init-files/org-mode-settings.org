@@ -7,10 +7,8 @@
     :after (use-package-ensure-system-package)
     :straight nil
     :mode ("\\.org\\'" . org-mode)
-    :config (define-key org-mode-map (kbd "C-c C-r") verb-command-map)
     :hook ((org-trigger . save-buffer)
 	   (org-mode . flyspell-mode)
-	   (org-mode . verb-mode)
 	   )
     :custom (org-todo-keywords
      '((sequence "TODO(t!)" "WAIT(w@/!)" "|" "DONE(d@!)" "CANCELED(c@)")))

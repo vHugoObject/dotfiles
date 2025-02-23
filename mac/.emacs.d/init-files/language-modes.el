@@ -21,13 +21,13 @@
   :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
-  :mode "\\.ts$\\'")
+  :mode "\\*.ts\\'")
 
 (use-package tsx-ts-mode
   :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :defer t
-  :mode "\\.tsx$\\'")
+  :mode "\\*.tsx\\'")
 
 (use-package json-ts-mode
   :after (use-package-ensure-system-package)
@@ -44,7 +44,6 @@
   :after (use-package-ensure-system-package)
   :straight (:type built-in)
   :hook ((rust-mode . eglot-ensure)
-	 (typescript-mode . lsp-deferred)
 	 )
   :bind (:map eglot-mode-map
 	    ("C-c d" . eldoc)

@@ -1,5 +1,6 @@
 (use-package spray
-  :after (use-package-ensure-system-package)    
+  :after (use-package-ensure-system-package)
+  :straight (spray :type git :host github :repo "emacsmirror/spray")
   :bind ("C-<f6>" . spray-mode)
   :mode ("\\.epub\\'" "\\.txt\\'")
   :custom ((spray-margin-left 80)
@@ -22,13 +23,6 @@
   :bind ("C-c S" . #'codespaces-connect)
   :straight (codespaces.el :type git :host github :repo "patrickt/codespaces.el"
 		    :fork t)
-  )
-
-(use-package verb
-  :after (use-package-ensure-system-package)
-  :straight (verb :type git :host github :repo "federicotdn/verb"
-		  :fork t)
-
   )
 
 (use-package emr

@@ -1,0 +1,54 @@
+(setq list-1 (list (1 2)))
+(setq lis1 (list (1 2)))
+(setq lis (list 1))
+(setq lis (list (1)))
+(setq lis (1))
+(setq lis (list 1))
+(setq lis (list(list 1)))
+(setq lis (list(list 1 2)))
+(setq lis ((1)))
+(setq lis (list(list 1 2)))
+(push (1 2) lis)
+(setq lis (list(list 1 2)))
+(append lis lis)
+(defun hash-to-list (hashtable)      "Convert a hashtable into a list"      (let ((new-list nil))	(maphash	 (lambda (k v)	   (push (list k v) new-list))	 hashtable)	new-list))
+(let* ((table-1 (make-hash-table :test equal))	 (table-2 (make-hash-table :test equal))	 )(puthash 1 2 table-1))
+(let* ((table-1 (make-hash-table :test 'equal))	 (table-2 (make-hash-table :test 'equal))	 )(puthash 1 2 table-1))
+(setq lis (list(list 1 2)))
+(setq lis (list(list 1 2)(list 3 4)))
+(let* ((table-1 (make-hash-table :test 'equal))	 (table-2 (make-hash-table :test 'equal))	 (table-3 (make-hash-table :test 'equal))	 (list-1 (list(list 1 2)(list 3 4)))	 )    (puthash 1 2 table-1)    (puthash 3 4 table-1)    (puthash a b table-2)    (puthash c d table-2)    (puthash a 1 table-3)    (puthash c 2 table-3)    )
+(let* ((table-1 (make-hash-table :test 'equal))	 (table-2 (make-hash-table :test 'equal))	 (table-3 (make-hash-table :test 'equal))	 (list-1 (list(list 1 2)(list 3 4)))	 )    (puthash 1 2 table-1)    (puthash 3 4 table-1)    (puthash 'a 'b table-2)    (puthash 'c 'd table-2)    (puthash 'a 1 table-3)    (puthash 'c 2 table-3)    )
+(let* ((table-1 (make-hash-table :test 'equal))	 (table-2 (make-hash-table :test 'equal))	 (table-3 (make-hash-table :test 'equal))	 (list-1 (list(list 1 2)(list 3 4)))	 )    (puthash 1 2 table-1)    (puthash 3 4 table-1)    (puthash 'a 'b table-2)    (puthash 'c 'd table-2)    (puthash 'a 1 table-3)    (puthash 'c 2 table-3)    )
+(let* ((table-1 (make-hash-table :test 'equal))	 (table-2 (make-hash-table :test 'equal))	 (table-3 (make-hash-table :test 'equal))	 (list-1 (list(list 1 2)(list 3 4)))	 )    (puthash 1 2 table-1)    (puthash 3 4 table-1)    (puthash 'a 'b table-2)    (puthash 'c 'd table-2)    (puthash 'a 1 table-3)    (puthash 'c 2 table-3)    list-1)
+(let* ((table-1 (make-hash-table :test 'equal))       (table-2 (make-hash-table :test 'equal))       (table-3 (make-hash-table :test 'equal))       (table-4 (make-hash-table :test 'equal))       (list-1 (list(list 1 2)(list 3 4)))       (list-2 (list(list 'a 'b)(list 'c 'd)))       (list-3 (list(list 'a 1)(list 'c 2)))       (list-4 (list(list 1 'a)(list 2 'c)))       )  (puthash 1 2 table-1)  (puthash 3 4 table-1)  (puthash 'a 'b table-2)  (puthash 'c 'd table-2)  (puthash 'a 1 table-3)  (puthash 'c 2 table-3)  (puthash 1 'a table-4)  (puthash 2 'c table-4)  (hash-to-list table-1)  )
+(append (1 2) (3 4))
+(append '(1 2) '(3 4))
+(append ('(1 2) '(3 4)))
+(append '((1 2) (3 4)))
+(150000 300000 200000 250000)
+(apply '+ (150000 300000 200000 250000))
+(apply '+ (150000))
+(apply '+ (1))
+(1)
+1
+(1 2)
+(let ((test-hash-table1 (make-hash-table :test 'equal))))
+(let ((test-hash-table1 (make-hash-table :test 'equal)))test-hash-table1)
+(let* (	 (test-hash-table1 (make-hash-table :test 'equal))	 (test-hash-table2 (make-hash-table :test 'equal))	 (same-hash-tables (list test-hash-table1 test-hash-table2)))same-hash-tables)
+(let* (	 (test-hash-table1 (make-hash-table :test 'equal))	 (test-hash-table2 (make-hash-table :test 'equal))	 (same-hash-tables (list test-hash-table1 test-hash-table2))	 (test-hash-table-variables (list (cons "name" "test-name")				  (cons "displayName" "test-displayName")				  (cons "state" "AVAILABLE")				  (cons "repository" "test/test-repository")				  ))	 (test-cases (list (cons (test-hash-table1 test-hash-table2) t)			   (cons (test-hash-table1 test-hash-table3) nil)			   (cons (test-hash-table2 test-hash-table3) nil)			   )	 )))
+((defvar bar 23) (let ((bar 28))   bar) )
+(defvar bar 23)
+(let ((bar 28))   bar)
+(progn (let ((bar 28))   bar))
+(progn (defvar bar 23) (let ((bar 28))   bar))
+(progn (defconst bar 23) (let ((bar 28))   bar))
+./wolve.py
+!!
+./wolve.py
+!
+help
+help
+help
+help
+finder
+open

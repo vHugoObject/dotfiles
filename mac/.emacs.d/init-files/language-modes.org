@@ -33,7 +33,7 @@
     :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :defer t
-    :mode "\\.ts$\\'")
+    :mode "\\*.ts\\'")
 #+end_src
 ** tsx mode
 #+begin_src emacs-lisp :tangle yes  
@@ -41,7 +41,7 @@
     :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :defer t
-    :mode "\\.tsx$\\'")
+    :mode "\\*.tsx\\'")
 #+end_src
 
 ** json mode
@@ -66,7 +66,6 @@
     :after (use-package-ensure-system-package)
     :straight (:type built-in)
     :hook ((rust-mode . eglot-ensure)
-	   (typescript-mode . lsp-deferred)
 	   )
     :bind (:map eglot-mode-map
 	      ("C-c d" . eldoc)

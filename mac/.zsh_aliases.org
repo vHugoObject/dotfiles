@@ -1,0 +1,83 @@
+src_zsh{#!/bin/zsh} 
+
+* aliases for emacs
+#+begin_src zsh :tangle yes
+# start emacs in terminal
+alias emacs="emacsclient"
+# start the emacs daemon so emacs can run in terminal
+alias emacsdaemon="emacs --daemon"
+# edit emacs init.el
+alias editemacs="emacs ~/.emacs.d/init.el"
+# edit emacs config
+alias editeconfig="emacs ~/.emacs.d/config.org"
+#+end_src
+
+* overrides
+#+begin_src zsh :tangle yes
+# ls with -A option so that dotfiles are always listed
+alias -g ls="ls -A -C"
+#+end_src
+
+* miscellaneous helpful commands
+#+begin_src zsh :tangle yes
+alias caf="caffeinate -dims &" #caffeinate and send to background
+alias deletelast="rm -r target"
+alias get_builtins="echo ${(k)builtins}"
+# open current directory in finder
+alias -g finder="open -a Finder ./"
+# repeat the last command
+# -s stands for the following can be followed by:
+# pat  Pattern (string to find)
+# rep  Replace (new string)
+# -s is followed by cmd  command to retrieve from history (string or number)
+alias -g repeat="fc -s"
+alias weather='curl "http://wttr.in/"'
+alias launch='basic-http-server .'
+#+end_src
+
+* helpful search commands
+#+begin_src zsh :tangle yes
+# quick way to search a folder
+alias -g fsearch="ls | grep"
+# quick way to search aliases
+alias -g agrep="alias | grep"
+#+end_src
+
+
+* shortcuts to edit dotfiles
+#+begin_src zsh :tangle yes
+alias cddot="cd ~/dotfiles"
+alias editzshrc="emacs ~/.zshrc"     
+alias editzshenv="emacs ~/.zshenv"     
+alias editaliases="emacs ~/.zsh_aliases"
+alias editfuncs="emacs ~/.zsh_functions"
+alias editzshoptions="emacs ~/.zsh_options"
+alias editzshexports="emacs ~/.zsh_exports"
+# update shell so that new edits take effect
+alias -g shellupdate="source ~/.zshrc"
+#+end_src
+
+* git aliases
+#+begin_src zsh :tangle yes
+# -a = tell the command to stage all files
+# -m = use the given commit message
+alias gc="git commit -am"
+# Update remote refs along with associated objects
+alias -g  gp="git push"
+# edit the last three commits, -i = interactive, HEAD represent working branch, ~3 as in last three commits
+alias editcommits="git rebase -i HEAD~3" 
+alias gs="git status"
+#+end_src
+
+* github aliases
+#+begin_src zsh :tangle yes
+# Authenticate against github.com by reading the token from a file
+alias ghlogin="gh auth login --with-token < $HOME/gtoken.txt" 
+# create a new gist, -p = public, -w = open with your default browser
+alias newgist="gh gist create -p -w" 
+#+end_src
+
+* rust specific
+#+begin_src zsh :tangle yes
+alias cwasm='cargo build --target wasm32-unknown-unknown'
+#+end_src

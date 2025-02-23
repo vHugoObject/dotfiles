@@ -1,6 +1,6 @@
 (require 'org-table)
 
-(let* ((file-directory (file-name-directory (buffer-file-name)))
+(let* ((file-directory (file-name-directory (or buffer-file-name load-file-name)))
 	(file-name "org-functions")
 
   (load (file-name-concat file-directory file-name))))

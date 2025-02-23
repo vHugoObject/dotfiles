@@ -1,0 +1,12 @@
+* Load all packages
+#+begin_src elisp :tangle yes
+  (let* ((current-file-name (load-file-name))	 
+	 (current-directory (file-name-directory current-file-name))
+	 (folders (list "utilities" "org-table-summaries"))
+	 (file-list (seq-concatenate 'list init-files personal-packages)))
+      (mapc #'load file-list))
+
+#+end_src
+#+begin_src elisp :tangle yes
+  (mapcar #'file-name-sans-extension )
+#+end_src
